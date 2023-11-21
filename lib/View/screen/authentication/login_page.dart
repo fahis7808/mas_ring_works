@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/staff_details/staff_details.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
@@ -25,7 +26,9 @@ class LoginPage extends StatelessWidget {
             // const SizedBox(height: 50,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-              child: CustomButton(text: "LOGIN", onTap: (){}),
+              child: CustomButton(text: "LOGIN", onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_) => StaffDetails()));
+              }),
             ),
             // SizedBox(height: 20,),
             Spacer(flex: 1,),
