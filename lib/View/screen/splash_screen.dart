@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 
-import 'login/login_page.dart';
+import 'authentication/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -31,6 +31,7 @@ class SplashScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Business \nManagement",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         color: AppColors.primaryColor,

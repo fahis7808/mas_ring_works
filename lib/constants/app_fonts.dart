@@ -17,4 +17,25 @@ class AppFont {
       fontSize: 18,
       fontWeight: FontWeight.w800,
       color: Colors.white);
+
+  static TextStyle grayText = GoogleFonts.inter(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColors.gray);
+
+  static TextStyle smallText = GoogleFonts.inter(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColors.primaryColor);
+
+  static TextStyle largeText = GoogleFonts.inter(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.primaryColor);
+
+
+
+
+
+
 }
