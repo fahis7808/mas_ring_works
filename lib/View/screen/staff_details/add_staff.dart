@@ -33,21 +33,21 @@ class RegisterStaff extends StatelessWidget {
               ),
               CustomTextField(
                 value: "",
-                text: "Name",
+                labelText: "Name",
               ),
               SizedBox(
                 height: 10,
               ),
               CustomTextField(
                 value: "",
-                text: "Mobile Number",
+                labelText: "Mobile Number",
               ),
               SizedBox(
                 height: 10,
               ),
               CustomTextField(
                 value: "",
-                text: "E mail",
+                labelText: "E mail",
               ),
               SizedBox(
                 height: 10,
@@ -56,7 +56,7 @@ class RegisterStaff extends StatelessWidget {
                 items: [],
                 onChanged: (val) {},
                 value: "",
-                text: "Job Type",
+                labelText: "Job Type",
               ),
               SizedBox(
                 height: 10,
@@ -66,7 +66,7 @@ class RegisterStaff extends StatelessWidget {
                   Expanded(
                       child: CustomTextField(
                     value: "",
-                    text: "Basic Salary",
+                    labelText: "Basic Salary",
                   )),
                   SizedBox(
                     width: 10,
@@ -76,7 +76,7 @@ class RegisterStaff extends StatelessWidget {
                       items: [],
                       onChanged: (val) {},
                       value: "",
-                      text: "Salary Type",
+                      labelText: "Salary Type",
                     ),
                   ),
                 ],
@@ -101,7 +101,7 @@ class RegisterStaff extends StatelessWidget {
                             Expanded(
                                 child: CustomTextField(
                               value: "",
-                              text: "Hour",
+                              labelText: "Hour",
                             )),
                             SizedBox(
                               width: 10,
@@ -109,7 +109,7 @@ class RegisterStaff extends StatelessWidget {
                             Expanded(
                                 child: CustomTextField(
                               value: "",
-                              text: "Wage",
+                              labelText: "Wage",
                             )),
                           ],
                         ),

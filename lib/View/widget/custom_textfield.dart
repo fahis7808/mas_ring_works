@@ -109,7 +109,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   borderSide: widget.labelText == null
                       ? BorderSide.none
                       : const BorderSide(
-                          width: 2, color: AppColors.primaryColor),
+                          width: 1, color: AppColors.primaryColor),
                   borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                 borderSide: widget.labelText == null

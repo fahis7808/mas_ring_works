@@ -13,11 +13,6 @@ class AppFont {
       fontWeight: FontWeight.w600,
       color: AppColors.textFieldText);
 
-  static TextStyle buttonText = GoogleFonts.inter(
-      fontSize: 18,
-      fontWeight: FontWeight.w800,
-      color: Colors.white);
-
   static TextStyle grayText = GoogleFonts.inter(
       fontSize: 12,
       fontWeight: FontWeight.w500,
@@ -63,14 +58,19 @@ class AppFont {
       fontWeight: FontWeight.w600,
       color: AppColors.tertiaryColor  );
 
+  static TextStyle whiteMediumText = GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: Colors.white);
+
   static TextStyle whiteLargeText = GoogleFonts.inter(
       fontSize: 24,
       fontWeight: FontWeight.w700,
       color: Colors.white);
 
-  static TextStyle whiteMediumText = GoogleFonts.inter(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
+  static TextStyle buttonText = GoogleFonts.inter(
+      fontSize: 18,
+      fontWeight: FontWeight.w800,
       color: Colors.white);
 
 
