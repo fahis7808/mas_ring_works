@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/staff_details/add_staff.dart';
 import 'package:mas_ring_works/View/screen/staff_details/staff_Card.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
+import 'package:mas_ring_works/View/widget/custom_button/custom_floating_action_button.dart';
 
 class StaffDetails extends StatelessWidget {
   const StaffDetails({Key? key}) : super(key: key);
@@ -15,6 +17,9 @@ class StaffDetails extends StatelessWidget {
           return StaffCard();
         }),
       ),
+      floatingActionButton: CustomFloatingActionButton(onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterStaff()));
+      },),
     );
   }
 }

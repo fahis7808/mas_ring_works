@@ -33,6 +33,11 @@ class AppFont {
       fontWeight: FontWeight.w600,
       color: AppColors.primaryColor);
 
+  static TextStyle cardText = GoogleFonts.inter(
+      fontSize: 15,
+      fontWeight: FontWeight.w800,
+      color: AppColors.primaryColor);
+
   static TextStyle largeText = GoogleFonts.inter(
       fontSize: 24,
       fontWeight: FontWeight.w700,
