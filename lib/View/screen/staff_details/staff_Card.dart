@@ -56,36 +56,5 @@ class StaffCard extends StatelessWidget {
             ],
           ),
         ));
-
-/*
-    Card(
-      // color: AppColors.cardColor1,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Row(
-          children: [
-            Column(
-              children: [
-                const Icon(
-                  Icons.person,size: 70,
-                  color: Colors.grey,
-                ),
-                Text("Fahis",style: AppFont.smallTitle,)
-              ],
-            ),
-            Expanded(child: Column(
-              children: [
-                Text("Aboobacker Fahis",style: AppFont.gridText,),
-                Text("8893288945",style: AppFont.mediumText,),
-              ],
-            )),
-            Column(children: [
-
-            ],)
-          ],
-        ),
-      ),
-    );
-*/
   }
 }

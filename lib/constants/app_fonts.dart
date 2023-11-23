@@ -18,6 +18,11 @@ class AppFont {
       fontWeight: FontWeight.w500,
       color: AppColors.gray);
 
+  static TextStyle grayTextTitle = GoogleFonts.inter(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: AppColors.gray);
+
   static TextStyle smallText = GoogleFonts.inter(
       fontSize: 12,
       fontWeight: FontWeight.w500,
@@ -43,6 +48,11 @@ class AppFont {
       fontWeight: FontWeight.w700,
       color: AppColors.primaryColor);
 
+  static TextStyle mediumText = GoogleFonts.inter(
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      color: AppColors.tertiaryColor  );
+
   static TextStyle gridText = GoogleFonts.inter(
       fontSize: 18,
       fontWeight: FontWeight.w600,
@@ -53,11 +63,6 @@ class AppFont {
       fontWeight: FontWeight.w600,
       color: Colors.black);
 
-  static TextStyle mediumText = GoogleFonts.inter(
-      fontSize: 15,
-      fontWeight: FontWeight.w600,
-      color: AppColors.tertiaryColor  );
-
   static TextStyle whiteMediumText = GoogleFonts.inter(
       fontSize: 16,
       fontWeight: FontWeight.w600,
@@ -66,6 +71,11 @@ class AppFont {
   static TextStyle whiteLargeText = GoogleFonts.inter(
       fontSize: 24,
       fontWeight: FontWeight.w700,
+      color: Colors.white);
+
+  static TextStyle cardTitle = GoogleFonts.inter(
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
       color: Colors.white);
 
   static TextStyle buttonText = GoogleFonts.inter(

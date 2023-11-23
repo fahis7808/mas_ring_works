@@ -15,7 +15,7 @@ class StatusCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text("on work",style: AppFont.statusColor,),
+        child: Text(status,style: AppFont.statusColor,),
       ),
     );
   }
