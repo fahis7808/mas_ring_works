@@ -9,7 +9,7 @@ class TitleTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,style: AppFont.grayTextTitle,),
         Text(text,style: AppFont.smallTitle,)

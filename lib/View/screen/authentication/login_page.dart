@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/branch/branch.dart';
+import 'package:mas_ring_works/View/screen/payment/payment_history.dart';
 import 'package:mas_ring_works/View/screen/staff_details/staff_details.dart';
 import 'package:mas_ring_works/View/screen/task/task_page.dart';
 import 'package:mas_ring_works/View/screen/vehicle/vehicle_page.dart';
@@ -14,31 +15,50 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex: 8),
-            const CustomTextField(value: "Fahis up",text: "Username",),
-            Spacer(flex: 1,),
+            const CustomTextField(
+              value: "Fahis up",
+              text: "Username",
+            ),
+            Spacer(
+              flex: 1,
+            ),
             // const SizedBox(height: 40,),
-            const CustomTextField(value: "111111",text: "Password",isPassWord: true,),
-            Spacer(flex: 3,),
+            const CustomTextField(
+              value: "111111",
+              text: "Password",
+              isPassWord: true,
+            ),
+            Spacer(
+              flex: 3,
+            ),
             // const SizedBox(height: 50,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-              child: CustomButton(text: "LOGIN", onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_) => BranchPage()));
-              }),
+              child: CustomButton(
+                  text: "LOGIN",
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => PaymentHistory()));
+                  }),
             ),
             // SizedBox(height: 20,),
-            Spacer(flex: 1,),
+            Spacer(
+              flex: 1,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?",style: AppFont.grayText,),
+                Text(
+                  "Don't have an account?",
+                  style: AppFont.grayText,
+                ),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -46,13 +66,12 @@ class LoginPage extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (_) => const MobileNumberPage()));
                     },
-                    child:  Text(
-                      'Sign up',
-                      style:AppFont.smallText
-                    )),
+                    child: Text('Sign up', style: AppFont.smallText)),
               ],
             ),
-            Spacer(flex: 6,)
+            Spacer(
+              flex: 6,
+            )
           ],
         ),
       ),
