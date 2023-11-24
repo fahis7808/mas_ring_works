@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/staff_details/staff_details.dart';
 import 'package:mas_ring_works/View/screen/task/task_page.dart';
+import 'package:mas_ring_works/View/screen/vehicle/vehicle_page.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: CustomButton(text: "LOGIN", onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_) => TaskPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => VehiclePage()));
               }),
             ),
             // SizedBox(height: 20,),
