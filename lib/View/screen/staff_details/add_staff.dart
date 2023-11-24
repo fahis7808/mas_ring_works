@@ -13,46 +13,46 @@ class RegisterStaff extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Register Staff"),
+      appBar: const CustomAppBar(title: "Register Staff"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
+                radius: 75,
+                backgroundColor: AppColors.cardColor,
                 child: Icon(
                   Icons.person,
                   size: 90,
                   color: AppColors.gray,
                 ),
-                radius: 75,
-                backgroundColor: AppColors.cardColor,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               CustomTextField(
                 value: "",
                 labelText: "Name",
-                onChanged: (val){},
+                onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CustomTextField(
                 value: "",
                 labelText: "Mobile Number",
-                onChanged: (val){},
+                onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CustomTextField(
                 value: "",
                 labelText: "E mail",
-                onChanged: (val){},
+                onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CustomDropdownField<String>(
@@ -61,17 +61,17 @@ class RegisterStaff extends StatelessWidget {
                 value: "",
                 labelText: "Job Type",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                       child: CustomTextField(
                     value: "",
                     labelText: "Basic Salary",
                   )),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
@@ -96,7 +96,7 @@ class RegisterStaff extends StatelessWidget {
                           "Overtime wage",
                           style: AppFont.cardText,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
@@ -105,14 +105,16 @@ class RegisterStaff extends StatelessWidget {
                                 child: CustomTextField(
                               value: "",
                               labelText: "Hour",
+                              onChanged: (val) {},
                             )),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
                                 child: CustomTextField(
                               value: "",
                               labelText: "Wage",
+                              onChanged: (val) {},
                             )),
                           ],
                         ),
@@ -121,7 +123,7 @@ class RegisterStaff extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
