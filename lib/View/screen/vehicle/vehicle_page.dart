@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/vehicle/add_vehicle.dart';
 import 'package:mas_ring_works/View/screen/vehicle/vehicle_card.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_floating_action_button.dart';
@@ -16,7 +17,10 @@ class VehiclePage extends StatelessWidget {
           return VehicleCard();
         }),
       ),
-      floatingActionButton: CustomFloatingActionButton(onTap: (){}),
+      floatingActionButton: CustomFloatingActionButton(onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => AddVehicle()));
+      }),
     );
   }
 }

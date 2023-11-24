@@ -34,6 +34,7 @@ class RegisterStaff extends StatelessWidget {
               CustomTextField(
                 value: "",
                 labelText: "Name",
+                onChanged: (val){},
               ),
               SizedBox(
                 height: 10,
@@ -41,6 +42,7 @@ class RegisterStaff extends StatelessWidget {
               CustomTextField(
                 value: "",
                 labelText: "Mobile Number",
+                onChanged: (val){},
               ),
               SizedBox(
                 height: 10,
@@ -48,6 +50,7 @@ class RegisterStaff extends StatelessWidget {
               CustomTextField(
                 value: "",
                 labelText: "E mail",
+                onChanged: (val){},
               ),
               SizedBox(
                 height: 10,
