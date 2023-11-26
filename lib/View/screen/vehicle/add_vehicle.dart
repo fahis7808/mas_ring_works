@@ -65,7 +65,7 @@ class AddVehicle extends StatelessWidget {
                 height: 10,
               ),
               CustomDropdownField<String>(
-                items: [],
+                items: [""],
                 onChanged: (val) {},
                 value: "",
                 labelText: "Vehicle Usage",

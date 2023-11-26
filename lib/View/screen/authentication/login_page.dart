@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mas_ring_works/View/screen/branch/branch.dart';
-import 'package:mas_ring_works/View/screen/payment/payment_history.dart';
-import 'package:mas_ring_works/View/screen/staff_details/staff_details.dart';
-import 'package:mas_ring_works/View/screen/task/task_page.dart';
-import 'package:mas_ring_works/View/screen/vehicle/vehicle_page.dart';
+import 'package:mas_ring_works/View/screen/inventory/inventory_page.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
@@ -45,7 +41,7 @@ class LoginPage extends StatelessWidget {
                   text: "LOGIN",
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => PaymentHistory()));
+                        MaterialPageRoute(builder: (_) => InventoryPage()));
                   }),
             ),
             // SizedBox(height: 20,),
