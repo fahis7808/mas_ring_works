@@ -21,6 +21,22 @@ class AddTask extends StatelessWidget {
             children: [
               CustomTextField(
                 value: "",
+                labelText: "Customer",
+                onChanged: (val) {},
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              CustomTextField(
+                value: "",
+                labelText: "Customer Mobile",
+                onChanged: (val) {},
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              CustomTextField(
+                value: "",
                 labelText: "Site Name",
                 onChanged: (val) {},
               ),
