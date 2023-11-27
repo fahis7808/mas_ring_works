@@ -13,7 +13,7 @@ class AddTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Add Task"),
+      appBar: const CustomAppBar(title: "Add Task"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -24,7 +24,7 @@ class AddTask extends StatelessWidget {
                 labelText: "Customer",
                 onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomTextField(
@@ -32,7 +32,7 @@ class AddTask extends StatelessWidget {
                 labelText: "Customer Mobile",
                 onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomTextField(
@@ -40,7 +40,7 @@ class AddTask extends StatelessWidget {
                 labelText: "Site Name",
                 onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomTextField(
@@ -48,7 +48,7 @@ class AddTask extends StatelessWidget {
                 labelText: "Location",
                 onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomTextField(
@@ -56,7 +56,7 @@ class AddTask extends StatelessWidget {
                 labelText: "Work Date",
                 onChanged: (val) {},
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomDropdownField<String>(
@@ -65,7 +65,7 @@ class AddTask extends StatelessWidget {
                 value: "",
                 labelText: "Select Item",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -76,7 +76,7 @@ class AddTask extends StatelessWidget {
                     labelText: "Unite",
                     onChanged: (val) {},
                   )),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Expanded(
@@ -87,7 +87,7 @@ class AddTask extends StatelessWidget {
                   )),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               CustomDropdownField<String>(
@@ -96,12 +96,12 @@ class AddTask extends StatelessWidget {
                 value: "",
                 labelText: "Select Vehicle",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                     color: AppColors.cardColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(
@@ -131,7 +131,7 @@ class AddTask extends StatelessWidget {
                             backgroundColor: AppColors.cardColor,
                             onDeleted: () {},
                             deleteIconColor: AppColors.primaryColor,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),InputChip(
                             label: Text(
                               "Fahis",
@@ -140,7 +140,7 @@ class AddTask extends StatelessWidget {
                             backgroundColor: AppColors.cardColor,
                             onDeleted: () {},
                             deleteIconColor: AppColors.primaryColor,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),InputChip(
                             label: Text(
                               "Fahis",
@@ -149,7 +149,7 @@ class AddTask extends StatelessWidget {
                             backgroundColor: AppColors.cardColor,
                             onDeleted: () {},
                             deleteIconColor: AppColors.primaryColor,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),InputChip(
                             label: Text(
                               "Fahis",
@@ -158,7 +158,7 @@ class AddTask extends StatelessWidget {
                             backgroundColor: AppColors.cardColor,
                             onDeleted: () {},
                             deleteIconColor: AppColors.primaryColor,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),InputChip(
                             label: Text(
                               "Fahis",
@@ -167,7 +167,7 @@ class AddTask extends StatelessWidget {
                             backgroundColor: AppColors.cardColor,
                             onDeleted: () {},
                             deleteIconColor: AppColors.primaryColor,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),
                         ],
                       ),
@@ -175,7 +175,7 @@ class AddTask extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
