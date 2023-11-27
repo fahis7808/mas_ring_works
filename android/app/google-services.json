@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211287828142",
+    "project_id": "business-management-5dd75",
+    "storage_bucket": "business-management-5dd75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211287828142:android:d8795a92175343f485af3f",
+        "android_client_info": {
+          "package_name": "com.example.mas_ring_works"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIHey0YmX_wlKSzpJRwvPUR-rAb8hO4UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

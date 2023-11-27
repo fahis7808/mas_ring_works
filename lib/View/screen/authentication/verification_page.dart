@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/authentication/registration_page.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
+import 'package:pinput/pinput.dart';
 
+import '../../../constants/app_colors.dart';
 import '../../widget/custom_button/custom_button.dart';
 
 class VerificationPage extends StatelessWidget {
@@ -15,6 +17,7 @@ class VerificationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Spacer(flex: 8,),
             Text(
               "OTP Verification",
               style: AppFont.largeText,
@@ -30,8 +33,26 @@ class VerificationPage extends StatelessWidget {
                 ),
               ],
             ),
+            Spacer(flex: 2,),
+            Pinput(
+              length: 6,
+              showCursor: true,
+              defaultPinTheme: PinTheme(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      color: AppColors.cardColor,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.primaryColor)),
+                  textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.secondaryColor)),
+              onChanged: (val) {
 
-
+              },
+            ),
+            Spacer(flex: 2,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -44,12 +65,14 @@ class VerificationPage extends StatelessWidget {
                     )),
               ],
             ),
+            Spacer(flex: 1,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: CustomButton(text: "SENT OTP", onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
               }),
             ),
+            Spacer(flex: 8,),
           ],
         ),
       ),
