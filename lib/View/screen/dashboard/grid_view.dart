@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
 
 class GridViewPage extends StatelessWidget {
@@ -6,22 +7,20 @@ class GridViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, crossAxisSpacing: 10, mainAxisSpacing: 20),
-        itemCount: 8,
-        itemBuilder: (context, index) {
-          return InkWell(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.group,
-                  size: 50,
-                ),
-                Text("Staff Data",style: AppFont.gridText,)
-              ],
-            ),
-          );
-        });
+    return StaggeredGrid.count(
+      crossAxisSpacing: 5,
+      mainAxisSpacing: 15,
+      crossAxisCount: 4,children: [
+      for(int i=0; i<= 7; i++)
+        InkWell(
+          onTap: (){},
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(Icons.portrait,size: 90,),
+              Text("Staff \nDetails",style: AppFont.gridText,textAlign: TextAlign.center,)
+            ],),
+        ),
+    ],);
   }
 }

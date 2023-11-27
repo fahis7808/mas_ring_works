@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/dashboard/dashboard_screen.dart';
 import 'package:mas_ring_works/View/screen/inventory/inventory_page.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
@@ -41,7 +42,7 @@ class LoginPage extends StatelessWidget {
                   text: "LOGIN",
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => InventoryPage()));
+                        MaterialPageRoute(builder: (_) => DashboardPage()));
                   }),
             ),
             // SizedBox(height: 20,),

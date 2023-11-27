@@ -5,17 +5,19 @@ import '../../../constants/app_fonts.dart';
 
 class StatusCard extends StatelessWidget {
   final String status;
-  const StatusCard({Key? key, required this.status}) : super(key: key);
+  final Color? color;
+  final TextStyle? textStyle;
+  const StatusCard({Key? key, required this.status, this.color, this.textStyle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return  Container(
       decoration: BoxDecoration(
-          color: AppColors.cardColor,
+          color:color ?? AppColors.cardColor,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(status,style: AppFont.statusColor,),
+        child: Text(status,style:textStyle ?? AppFont.statusColor,),
       ),
     );
   }

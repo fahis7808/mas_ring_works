@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/dashboard/daily_business/daily_business_page.dart';
 import 'package:mas_ring_works/View/screen/dashboard/grid_view.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
@@ -50,7 +51,9 @@ class DashboardPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: CustomButton(
                 text: "Daily Business",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>DailyBusiness()));
+                },
                 color: AppColors.borderColors,
               ),
             ),
