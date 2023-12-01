@@ -4,11 +4,13 @@ import 'package:mas_ring_works/View/screen/splash_screen.dart';
 
 import 'firebase_option.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   runApp(const MyApp());
 }
 
@@ -28,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

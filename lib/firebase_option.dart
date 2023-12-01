@@ -16,11 +16,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions androidOptions = FirebaseOptions(
     apiKey: 'AIzaSyAIHey0YmX_wlKSzpJRwvPUR-rAb8hO4UU',
-    authDomain: 'YOUR_AUTH_DOMAIN',
+    authDomain: 'business-management-5dd75.firebaseapp.com',
     projectId: 'business-management-5dd75',
     storageBucket: 'business-management-5dd75.appspot.com',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID',
+    messagingSenderId: '211287828142',
+    appId: '1:211287828142:android:d8795a92175343f485af3f',
   );
 
   static const FirebaseOptions iosOptions = FirebaseOptions(
