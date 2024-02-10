@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/authentication/registration_page.dart';
 import 'package:mas_ring_works/View/screen/splash_screen.dart';
 
 import 'firebase_option.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/authentication/mobile_number_page.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 
 import 'authentication/login_page.dart';
@@ -15,7 +16,7 @@ class SplashScreen extends StatelessWidget {
     //       MaterialPageRoute(builder: (context) => const Dashboard()));
     // } else {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const LoginPage()),
+      MaterialPageRoute(builder: (context) => const MobileNumberPage()),
     );
   }
 

@@ -75,8 +75,9 @@ class VerificationPage extends StatelessWidget {
                   Spacer(flex: 1,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                    child: CustomButton(text: "SENT OTP", onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+                    child: CustomButton(text: "VERIFY", onTap: (){
+                      data.verifyOtp(context: context, verificationId: verificationId);
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                     }),
                   ),
                   Spacer(flex: 8,),

@@ -40,10 +40,10 @@ class MobileNumberPage extends StatelessWidget {
                   flex: 3,
                 ),
                 CustomTextField(
-                  value: data.phone?.toString() ?? "",
+                  value: data.userData.phoneNumber?.toString() ?? "",
                   text: "Mobile Number",
                   onChanged: (val){
-                    data.phone = val.toInt();
+                    data.userData.phoneNumber = val;
                   },
                 ),
                 Spacer(
@@ -64,23 +64,6 @@ class MobileNumberPage extends StatelessWidget {
                 ),
                 Spacer(
                   flex: 1,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account? ",
-                      style: AppFont.grayText,
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const MobileNumberPage()));
-                        },
-                        child: Text('Login', style: AppFont.smallText)),
-                  ],
                 ),
                 Spacer(
                   flex: 7,
