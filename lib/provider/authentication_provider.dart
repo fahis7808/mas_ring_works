@@ -30,6 +30,10 @@ class AuthenticationProvider extends ChangeNotifier {
   final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
+  AuthenticationProvider(){
+    signInCheck();
+  }
+
   signInCheck() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -45,33 +49,35 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  signInWithPhone(BuildContext context) async {
-    print(userData.phoneNumber);
-    String phoneNumber = userData.phoneNumber.toString().trim();
+  Future<void> signInWithPhone(BuildContext context) async {
     try {
+      final String normalizedPhoneNumber = phoneCode + userData.phoneNumber!.trim();
       await firebaseAuth.verifyPhoneNumber(
-          phoneNumber: phoneCode + phoneNumber.toString(),
-          verificationCompleted:
-              (PhoneAuthCredential phoneAuthCredential) async {
-            await firebaseAuth.signInWithCredential(phoneAuthCredential);
-          },
-          verificationFailed: (error) {
-            showSnackBar(context, error.message.toString());
-            throw Exception(error.message);
-          },
-          codeSent: (verificationId, forceResendingToken) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => VerificationPage(
-                          verificationId: verificationId,
-                        )));
-          },
-          codeAutoRetrievalTimeout: (verificationId) {});
-    } on FirebaseAuthException catch (e) {
-      SnackBar(
-        content: Text(e.toString()),
+        phoneNumber: normalizedPhoneNumber,
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+          await firebaseAuth.signInWithCredential(phoneAuthCredential);
+          // Authentication successful, you might want to navigate to a new screen here
+        },
+        verificationFailed: (FirebaseAuthException error) {
+          showSnackBar(context, error.message.toString());
+          // Handle verification failed, such as showing an error message
+        },
+        codeSent: (String verificationId, int? forceResendingToken) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerificationPage(verificationId: verificationId),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // Handle code auto retrieval timeout if needed
+        },
       );
+    } catch (e) {
+      print("Error occurred: $e");
+      showSnackBar(context, "An error occurred. Please try again later.");
+      // Handle other exceptions if needed
     }
   }
 
@@ -237,6 +243,14 @@ reg(){
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
+  }
+
+  Future getDataFromSP() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String data = sharedPreferences.getString("user_model") ?? '';
+    userData = UserModel.fromMap(jsonDecode(data));
+    uid = userData.uid;
+    notifyListeners();
   }
 
 }
