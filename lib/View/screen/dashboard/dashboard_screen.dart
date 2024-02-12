@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Hey Fahise !",
+                              "Hey ${data.userModel.name} !",
                               style: AppFont.whiteMediumText,
                             ),
                             SizedBox(

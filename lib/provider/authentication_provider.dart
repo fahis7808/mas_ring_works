@@ -131,24 +131,23 @@ class AuthenticationProvider extends ChangeNotifier {
     if (querySnapshot.docs.isNotEmpty) {
       final data = querySnapshot.docs[0].data() as Map<String, dynamic>;
 
-      // _userModel = UserModel(
-      //   name: data['name'],
-      //   email: data['email'],
-      //   profilePic: data['profilePic'],
-      //   dob: data['dob'],
-      //   createdAt: data['createdAt'],
-      //   phoneNumber: data['phoneNumber'],
-      //   uid: data['uid'],
-      // );
-
-      // _uid = _userModel?.uid;
+      userData = UserModel(
+        name: data['name'],
+        email: data['email'],
+        profilePic: data['profilePic'],
+        createdAt: data['createdAt'],
+        phoneNumber: data['phoneNumber'],
+        uid: data['uid'],
+      );
+      //
+      uid = userData.uid;
     } else {}
   }
 
   Future saveUserDataSP() async {
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    // await sharedPreferences.setString(
-    //     'user_model', jsonEncode(userModel.toMap()));
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(
+        'user_model', jsonEncode(userData.toMap()));
   }
 
   /// /// /// Registration /// /// ///
