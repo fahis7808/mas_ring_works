@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/model/vehicle_model.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../service/firebase_service.dart';
 
@@ -29,6 +30,7 @@ class VehicleProvider extends ChangeNotifier {
     } else {
       prevDocId = (int.parse(prevDocId!) + 1).toString();
     }
+    vehicleModel.id = prevDocId.toInt();
     final response = await FirebaseService.saveUserDataToFirebase(
         prevDocId!, collectionName, vehicleModel.toMap());
     return response;

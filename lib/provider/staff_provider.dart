@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mas_ring_works/model/staff_model.dart';
 import 'package:mas_ring_works/service/firebase_service.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class StaffProvider extends ChangeNotifier {
   StaffModel staffModel = StaffModel();
@@ -27,6 +28,7 @@ class StaffProvider extends ChangeNotifier {
     } else {
       prevDocId = (int.parse(prevDocId!) + 1).toString();
     }
+    staffModel.id = prevDocId.toInt();
     final response = await FirebaseService.saveUserDataToFirebase(
         prevDocId!, collectionName, staffModel.toMap());
     return response;

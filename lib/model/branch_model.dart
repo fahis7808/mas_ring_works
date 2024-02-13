@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class BranchModel {
-  String? id;
+  int? id;
   String? photo;
   String? branchName;
   String? branchMobile;
@@ -22,7 +22,7 @@ class BranchModel {
         branchName: map['branchName'] ?? '',
         managerName: map['managerName'] ?? '',
         photo: map['photo'] ?? '',
-        id: map['id'] ?? "",
+        id: map['id'] ?? 0,
         branchLocation: map['branchLocation'] ?? '',
         branchMobile: map['branchMobile'] ?? "");
   }

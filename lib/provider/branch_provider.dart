@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/model/branch_model.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../service/firebase_service.dart';
 
@@ -28,6 +29,7 @@ class BranchProvider extends ChangeNotifier {
     } else {
       prevDocId = (int.parse(prevDocId!) + 1).toString();
     }
+    branchModel.id = prevDocId.toInt();
     final response = await FirebaseService.saveUserDataToFirebase(
         prevDocId!, collectionName, branchModel.toMap());
     return response;

@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class VehicleModel {
-  String? id;
+  int? id;
   String? driverName;
   String? vehicleType;
   String? vehicleNumber;
@@ -24,7 +24,7 @@ class VehicleModel {
         vehicleUsage: map['vehicleUsage'] ?? '',
         photo: map['photo'] ?? '',
         driverNumber: map['driverNumber'] ?? '',
-        id: map['id'] ?? "",
+        id: map['id'] ?? 0,
         vehicleType: map['vehicleType'] ?? '',
         loadCapacity: map['loadCapacity'] ?? 0,
         vehicleNumber: map['vehicleNumber'] ?? "");

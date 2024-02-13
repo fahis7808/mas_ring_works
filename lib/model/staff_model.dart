@@ -6,7 +6,7 @@ class StaffModel {
   String? photo;
   String? jobType;
   String? phoneNumber;
-  String? id;
+  int? id;
   double? salary;
   String? salaryType;
   double? overTimeHour;
@@ -26,7 +26,7 @@ class StaffModel {
         email: map['email'] ?? '',
         photo: map['photo'] ?? '',
         phoneNumber: map['phoneNumber'] ?? '',
-        id: map['id'] ?? "",
+        id: map['id'] ?? 0,
         jobType: map['jobType'] ?? '',
         salaryType: map['salaryType'] ?? '',
         overTimeHour: map['overTimeHour'] ?? 0,
