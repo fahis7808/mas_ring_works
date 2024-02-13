@@ -20,7 +20,7 @@ class FirebaseService{
     return null;
   }
 
- static Future<String?> getDocId() async {
+ static Future<String?> getUserDocId() async {
     String? uid = await getUid();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -40,15 +40,15 @@ class FirebaseService{
     }
   }
 
-  static Future<String> saveUserDataToFirebase(String documentName, Map<String, dynamic> modelClass) async {
-    String? docId = await getDocId();
-    if (docId != null) {
+  static Future<String> saveUserDataToFirebase(String docId,String documentName, Map<String, dynamic> modelClass) async {
+    String? userDocId = await getUserDocId();
+    if (userDocId != null) {
       try {
         await FirebaseFirestore.instance
             .collection("users")
-            .doc(docId)
-            .collection(documentName)
-            .add(modelClass);
+            .doc(userDocId)
+            .collection(documentName).doc(docId)
+            .set(modelClass);
         return "Success";
       } catch (e) {
         print("Error: $e");
@@ -56,12 +56,12 @@ class FirebaseService{
       }
     } else {
       print("User ID not found.");
-      return "User ID not found."; // Return an error message or any other indication
+      return "User ID not found.";
     }
   }
 
   static Future<List<Map<String, dynamic>>> getDataFromFireStore(String documentName) async {
-    String? docId = await getDocId();
+    String? docId = await getUserDocId();
     List<Map<String, dynamic>> dataList = [];
 
     if (docId != null) {
@@ -87,6 +87,24 @@ class FirebaseService{
     }
   }
 
+  static Future<String> getDocId(String collectionName) async {
+    String? docId = await getUserDocId();
 
-
+    if (docId != null) {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(docId)
+          .collection(collectionName)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot lastDocument = querySnapshot.docs.last;
+        return lastDocument.id;
+      } else {
+        return "";
+      }
+    } else {
+      print("User ID not found.");
+      return ""; // Return an empty list
+    }
+  }
 }

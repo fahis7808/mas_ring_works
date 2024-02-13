@@ -51,7 +51,7 @@ class StaffDetails extends StatelessWidget {
                                       size: 70,
                                       color: AppColors.gray,
                                     ),
-                                   /* Text(
+                                    /* Text(
                                       "Fahis",
                                       style: AppFont.smallTitle,
                                     )*/
@@ -59,25 +59,37 @@ class StaffDetails extends StatelessWidget {
                                 ),
                                 Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          val.name.toString(),
-                                          style: AppFont.gridText,
-                                        ),
-                                        Text(
-                                          val.phoneNumber.toString(),
-                                          style: AppFont.mediumText,
-                                        ),
-                                      ],
-                                    )),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      val.name.toString(),
+                                      style: AppFont.gridText,
+                                    ),
+                                    Text(
+                                      val.phoneNumber.toString(),
+                                      style: AppFont.mediumText,
+                                    ),
+                                  ],
+                                )),
                                 Column(
                                   children: [
                                     StatusCard(status: "ON WORK"),
-                                    Row(children: [
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: AppColors.gray,)),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: AppColors.gray,))
-                                    ],)
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.delete,
+                                              color: AppColors.gray,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.edit,
+                                              color: AppColors.gray,
+                                            ))
+                                      ],
+                                    )
                                   ],
                                 )
                               ],
@@ -86,9 +98,10 @@ class StaffDetails extends StatelessWidget {
                 }),
           ),
           floatingActionButton: CustomFloatingActionButton(
-            onTap: () {;
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => RegisterStaff()));
+            onTap: () {
+              Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => RegisterStaff()))
+                  .then((value) => data.getDataFromFireStore());
             },
           ),
         );

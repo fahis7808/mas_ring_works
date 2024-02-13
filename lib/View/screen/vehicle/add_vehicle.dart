@@ -107,7 +107,6 @@ class AddVehicle extends StatelessWidget {
                         data.saveData().then((value){
                           if(value == "Success"){
                             Navigator.pop(context);
-                            data.getDataFromFireStore();
                           }else{
                             showSnackBar(context, "Something went wrong");
                           }

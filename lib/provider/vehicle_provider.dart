@@ -3,25 +3,40 @@ import 'package:mas_ring_works/model/vehicle_model.dart';
 
 import '../service/firebase_service.dart';
 
-class VehicleProvider extends ChangeNotifier{
+class VehicleProvider extends ChangeNotifier {
   VehicleModel vehicleModel = VehicleModel();
 
   List<VehicleModel> vehicleList = [];
+  String collectionName = "Vehicle Details";
+  String? prevDocId;
 
   VehicleProvider() {
     getDataFromFireStore();
+    getPreviousDocId();
   }
 
   Future<void> getDataFromFireStore() async {
-    List<Map<String, dynamic>> list = await FirebaseService.getDataFromFireStore("Vehicle Details");
+    List<Map<String, dynamic>> list =
+        await FirebaseService.getDataFromFireStore(collectionName);
     vehicleList = list.map((data) => VehicleModel.fromMap(data)).toList();
-   print(vehicleList);
+    print(vehicleList);
     notifyListeners();
   }
 
   Future<String> saveData() async {
+    if (prevDocId == null || prevDocId == "") {
+      prevDocId = "101";
+    } else {
+      prevDocId = (int.parse(prevDocId!) + 1).toString();
+    }
     final response = await FirebaseService.saveUserDataToFirebase(
-        "Vehicle Details", vehicleModel.toMap());
+        prevDocId!, collectionName, vehicleModel.toMap());
     return response;
+  }
+
+  Future<void> getPreviousDocId() async {
+    prevDocId = await FirebaseService.getDocId(collectionName);
+    print(prevDocId);
+    notifyListeners();
   }
 }
