@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../widget/custom_button/custom_button.dart';
 
 class RegisterStaff extends StatelessWidget {
-  const RegisterStaff({Key? key}) : super(key: key);
+  const RegisterStaff({super.key});
 
   @override
   Widget build(BuildContext context) {

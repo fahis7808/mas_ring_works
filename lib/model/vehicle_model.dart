@@ -10,13 +10,16 @@ class VehicleModel {
   String? driverNumber;
   double? loadCapacity;
 
-
-  VehicleModel(
-      {this.driverName,
-        this.vehicleUsage,
-        this.photo,
-        this.driverNumber,
-        this.id,this.vehicleNumber,this.vehicleType,this.loadCapacity,});
+  VehicleModel({
+    this.driverName,
+    this.vehicleUsage,
+    this.photo,
+    this.driverNumber,
+    this.id,
+    this.vehicleNumber,
+    this.vehicleType,
+    this.loadCapacity,
+  });
 
   factory VehicleModel.fromMap(Map<String, dynamic> map) {
     return VehicleModel(
@@ -37,9 +40,9 @@ class VehicleModel {
       'photo': photo,
       'driverNumber': driverNumber,
       'id': id,
-      'vehicleNumber' : vehicleNumber,
-      'vehicleType' : vehicleType,
-      'loadCapacity' : loadCapacity,
+      'vehicleNumber': vehicleNumber,
+      'vehicleType': vehicleType,
+      'loadCapacity': loadCapacity,
     };
   }
 }
