@@ -1,174 +1,221 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/widget/custom_card.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
+import 'package:mas_ring_works/model/task_model.dart';
+import 'package:mas_ring_works/provider/daily_business_provider.dart';
+import 'package:mas_ring_works/util/snack_bar.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_fonts.dart';
+import '../../../../model/staff_model.dart';
 import '../../../widget/custom_button/custom_button.dart';
 import '../../../widget/custom_textfield.dart';
 
 class OnDailyCardTap extends StatelessWidget {
-  const OnDailyCardTap({Key? key}) : super(key: key);
+ final  TaskModel taskModel;
+  const OnDailyCardTap({super.key, required this.taskModel});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "first task"),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              CustomTextField(
-                value: "",
-                labelText: "Customer Name",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomTextField(
-                value: "",
-                labelText: "Customer Mobile",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomTextField(
-                value: "",
-                labelText: "Location",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "Item",
-                      onChanged: (val) {},
+      body: ChangeNotifierProvider(
+        create: (ctx) => DailyBusinessProvider(),
+        child: Consumer<DailyBusinessProvider>(
+            builder: (context,data,_) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.customerName,
+                      labelText: "Customer Name",
+                      onChanged: (val) {
+                        taskModel.customerName = val;
+                      },
                     ),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "Item Count",
-                      onChanged: (val) {},
+                    SizedBox(
+                      height: 8,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "Start Time",
-                      onChanged: (val) {},
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.customerMobile,
+                      labelText: "Customer Mobile",
+                      onChanged: (val) {
+                        taskModel.customerMobile = val;
+                      },
                     ),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "End Time",
-                      onChanged: (val) {},
+                    SizedBox(
+                      height: 8,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8,),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "Over Time",
-                      onChanged: (val) {},
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.location,
+                      labelText: "Location",
+                      onChanged: (val) {
+                        taskModel.location = val;
+                      },
                     ),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
-                    child: CustomTextField(
-                      value: "",
-                      labelText: "Charge",
-                      onChanged: (val) {},
+                    SizedBox(
+                      height: 8,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomTextField(
-                value: "",
-                labelText: "Vehicle Number",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomTextField(
-                value: "",
-                labelText: "Driver Name",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomTextField(
-                value: "",
-                labelText: "Driver Mobile",
-                onChanged: (val) {},
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              CustomCard(child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Site Workers",
-                    style: AppFont.cardText,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 5,
+                    Row(
                       children: [
-                        for(int i=0;i<=6;i++)
-                        InputChip(
-                          label: Text(
-                            "Fahis up",
-                            style: AppFont.statusColor,
+                        Expanded(
+
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: taskModel.item,
+                            labelText: "Item",
+                            onChanged: (val) {},
                           ),
-                          backgroundColor: AppColors.cardColor,
-                          onDeleted: () {},
-                          deleteIconColor: AppColors.primaryColor,
-                          shape: StadiumBorder(),
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(readOnly: true,
+                            value: taskModel.unit?.toString()?? "",
+                            labelText: "Item Count",
+                            onChanged: (val) {},
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              )),
-              SizedBox(
-                height: 20,
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            value: taskModel.startTime,
+                            labelText: "Start Time",
+                            onChanged: (val) {taskModel.startTime = val;},
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(
+                            value: taskModel.endTime,
+                            labelText: "End Time",
+                            onChanged: (val) {
+                              taskModel.endTime = val;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            value: taskModel.overTime,
+                            labelText: "Over Time",
+                            onChanged: (val) {
+                              taskModel.overTime = val;
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(
+                            value: taskModel.overTimeCharge?.toString() ?? "",
+                            labelText: "Charge",
+                            onChanged: (val) {
+                              taskModel.overTimeCharge = val.toDouble();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.vehicleNumber,
+                      labelText: "Vehicle Number",
+                      onChanged: (val) {},
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.driverName,
+                      labelText: "Driver Name",
+                      onChanged: (val) {},
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    CustomTextField(
+                      readOnly: true,
+                      value: taskModel.driverMobile,
+                      labelText: "Driver Mobile",
+                      onChanged: (val) {},
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    CustomCard(child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Site Workers",
+                              style: AppFont.cardText,
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 5,
+                            children: [
+                              for (StaffModel staff
+                              in taskModel.staffData ?? [])
+                                InputChip(
+                                  label: Text(
+                                    staff.name.toString(),
+                                    style: AppFont.statusColor,
+                                  ),
+                                  backgroundColor: AppColors.cardColor,
+                                  onDeleted: () {},
+                                  deleteIconColor: AppColors.primaryColor,
+                                  shape: const StadiumBorder(),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: CustomButton(text: "WORK FINISHED", onTap: () {
+                        data.saveData(taskModel).then((value) {
+                          if(value == "Success"){
+                            Navigator.pop(context);
+                          }else{
+                            showSnackBar(context, "Something went wrong");
+                          }
+                        });
+                      }),
+                    ),
+                  ],
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: CustomButton(text: "WORK FINISHED", onTap: () {}),
-              ),
-            ],
-          ),
+            );
+          }
         ),
       ),
     );

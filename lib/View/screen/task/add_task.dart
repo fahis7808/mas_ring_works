@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
+import 'package:mas_ring_works/View/widget/custom_date_field.dart';
 import 'package:mas_ring_works/View/widget/custom_dropdown_field.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
@@ -67,11 +69,20 @@ class AddTask extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  CustomTextField(
-                    value: data.taskModel.workDate,
-                    labelText: "Work Date",
+                  DatePicker(
+                    fieldLabelText: "Work Date",
+                    initialDate: DateTime.now(),
+                    value: DateTime.now(),
+                    controller: data.dateController,
                     onChanged: (val) {
                       data.taskModel.workDate = val;
+                    },
+                    onDateChanged: (val) {
+                      if (val != null) {
+                        String formattedDate =
+                            DateFormat('dd-MM-yyyy').format(val);
+                        data.taskModel.workDate = formattedDate;
+                      }
                     },
                   ),
                   const SizedBox(
@@ -122,6 +133,8 @@ class AddTask extends StatelessWidget {
                         .toList(),
                     onChanged: (val) {
                       data.taskModel.vehicleNumber = val;
+                      data.selectedVehicle = data.vehicleList
+                          .firstWhere((element) => element.driverName == val);
                     },
                     value: data.taskModel.vehicleNumber,
                     labelText: "Select Vehicle",

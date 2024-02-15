@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mas_ring_works/View/screen/widget/custom_card.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/provider/payment_provider.dart';
@@ -7,6 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_button/custom_button.dart';
+import '../../widget/custom_date_field.dart';
 import '../../widget/custom_dropdown_field.dart';
 import '../../widget/custom_textfield.dart';
 
@@ -30,11 +32,10 @@ class AddAdvancePayment extends StatelessWidget {
                         data.staffList.map((e) => e.name.toString()).toList(),
                     onChanged: (val) {
                       data.paymentModel.staffName = val;
-                      final selectedStaff =
+                      data.staffModel =
                           data.staffList.firstWhere((e) => e.name == val);
-                      data.paymentModel.staffId = selectedStaff.id;
-                      data.paymentModel.staffNumber = selectedStaff.phoneNumber;
-                      // data.paymentModel.balance = selectedStaff.balanceSalary?.toDouble();
+                      data.paymentModel.staffId = data.staffModel.id;
+                      data.paymentModel.staffNumber = data.staffModel.phoneNumber;
                       data.onRefresh();
                     },
                     value: data.paymentModel.staffName,
@@ -59,11 +60,20 @@ class AddAdvancePayment extends StatelessWidget {
                       Expanded(
                         child: Column(
                           children: [
-                            CustomTextField(
-                              value: data.paymentModel.date,
-                              labelText: "Date",
+                            DatePicker(
+                              fieldLabelText: "Work Date",
+                              initialDate: DateTime.now(),
+                              value: DateTime.now(),
+                              controller: data.dateController,
                               onChanged: (val) {
                                 data.paymentModel.date = val;
+                              },
+                              onDateChanged: (val) {
+                                if (val != null) {
+                                  String formattedDate =
+                                  DateFormat('dd-MM-yyyy').format(val);
+                                  data.paymentModel.date = formattedDate;
+                                }
                               },
                             ),
                             const SizedBox(
@@ -85,7 +95,7 @@ class AddAdvancePayment extends StatelessWidget {
                                   child: CustomTextField(
                                     readOnly: true,
                                     value:
-                                        data.paymentModel.balance?.toString() ??
+                                        data.staffModel.balanceSalary?.toString() ??
                                             "0",
                                     labelText: "Balance",
                                     onChanged: (val) {},

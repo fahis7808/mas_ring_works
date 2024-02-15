@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mas_ring_works/model/task_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -13,9 +14,11 @@ class TaskProvider extends ChangeNotifier {
   List<StaffModel> staffList = [];
   List<InventoryModel> itemList = [];
   List<VehicleModel> vehicleList = [];
+  VehicleModel selectedVehicle = VehicleModel();
 
   String collectionName = "Task Details";
   String? prevDocId;
+  TextEditingController dateController = TextEditingController();
 
   TaskProvider() {
     getDataFromFireStore();
@@ -74,6 +77,11 @@ class TaskProvider extends ChangeNotifier {
     } else {
       prevDocId = (int.parse(prevDocId!) + 1).toString();
     }
+    taskModel.driverMobile = selectedVehicle.driverNumber;
+    taskModel.vehicleNumber = selectedVehicle.vehicleNumber;
+    taskModel.workDate = taskModel.workDate ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
+    taskModel.taskName =
+        "${taskModel.customerName}_${taskModel.siteName}_${taskModel.workDate}";
     taskModel.id = prevDocId.toInt();
     final response = await FirebaseService.saveUserDataToFirebase(
         prevDocId!, collectionName, taskModel.toMap());
