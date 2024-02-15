@@ -121,7 +121,6 @@ class AddAdvancePayment extends StatelessWidget {
                     child: CustomButton(
                         text: "ADD",
                         onTap: () {
-                          // data.getStaffList();
                           data.saveData().then((value) {
                             if (value == "Success") {
                               Navigator.pop(context);
