@@ -11,14 +11,20 @@ class StaffModel {
   String? salaryType;
   double? overTimeHour;
   double? overTimeWage;
+  double? balanceSalary;
 
   StaffModel(
       {this.name,
-        this.email,
-        this.photo,
-        this.jobType,
-        this.phoneNumber,
-        this.id,this.salary,this.salaryType,this.overTimeHour,this.overTimeWage});
+      this.email,
+      this.photo,
+      this.jobType,
+      this.phoneNumber,
+      this.id,
+      this.salary,
+      this.salaryType,
+      this.overTimeHour,
+      this.overTimeWage,
+      this.balanceSalary});
 
   factory StaffModel.fromMap(Map<String, dynamic> map) {
     return StaffModel(
@@ -31,7 +37,8 @@ class StaffModel {
         salaryType: map['salaryType'] ?? '',
         overTimeHour: map['overTimeHour'] ?? 0,
         overTimeWage: map['overTimeWage'] ?? 0,
-        salary: map['salary'] ?? 0);
+        salary: map['salary'] ?? 0,
+        balanceSalary: map['balanceSalary'] ?? 0,);
   }
 
   Map<String, dynamic> toMap() {
@@ -42,10 +49,11 @@ class StaffModel {
       'phoneNumber': phoneNumber,
       'id': id,
       'jobType': jobType,
-      'salary' : salary,
-      'salaryType' : salaryType,
-      'overTimeHour' : overTimeHour,
-      'overTimeWage' : overTimeWage,
+      'salary': salary,
+      'salaryType': salaryType,
+      'overTimeHour': overTimeHour,
+      'overTimeWage': overTimeWage,
+      'balanceSalary': balanceSalary,
     };
   }
 }
