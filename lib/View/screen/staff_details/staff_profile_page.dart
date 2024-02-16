@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
+import 'package:mas_ring_works/model/staff_model.dart';
 
 class StaffProfilePage extends StatelessWidget {
-  const StaffProfilePage({Key? key}) : super(key: key);
+  final StaffModel staffData;
+
+  const StaffProfilePage({super.key, required this.staffData});
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +29,21 @@ class StaffProfilePage extends StatelessWidget {
             backgroundColor: AppColors.cardColor,
           ),
           Text(
-            "Aboobacker Fahise",
+            staffData.name.toString(),
             style: AppFont.whiteLargeText,
           ),
           SizedBox(
             height: 6,
           ),
           Text(
-            "fahis369@gmail.com",
+            staffData.email.toString(),
             style: AppFont.buttonText,
           ),
           SizedBox(
             height: 3,
           ),
           Text(
-            "8893288945",
+            staffData.phoneNumber.toString(),
             style: AppFont.buttonText,
           ),
           SizedBox(
@@ -53,15 +56,43 @@ class StaffProfilePage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 35, 20, 10),
               child: Column(
                 children: [
-                  CustomTextField(value: "",labelText: "Job Type",),
-                  SizedBox(height: 10,),
-                  CustomTextField(value: "",labelText: "Daily Salary",),
-                  SizedBox(height: 10,),
-                  CustomTextField(value: "",labelText: "Total Working Days",),
-                  SizedBox(height: 10,),
-                  CustomTextField(value: "",labelText: "Advance Paid",),
-                  SizedBox(height: 10,),
-                  CustomTextField(value: "",labelText: "Balance Payment",),
+                  CustomTextField(
+                    readOnly: true,
+                    value: staffData.jobType,
+                    labelText: "Job Type",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    value: staffData.salary.toString(),
+                    labelText: "Daily Salary",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    value: staffData.totalWorkingDays?.toString() ?? "",
+                    labelText: "Total Working Days",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    value: staffData.advancePaid?.toString() ?? "",
+                    labelText: "Advance Paid",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    value: staffData.balanceSalary.toString(),
+                    labelText: "Balance Payment",
+                  ),
                 ],
               ),
             ),

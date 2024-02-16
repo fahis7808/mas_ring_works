@@ -33,7 +33,7 @@ class StaffDetails extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => StaffProfilePage()));
+                                builder: (_) => StaffProfilePage(staffData: val,)));
                       },
                       child: Container(
                           margin: EdgeInsets.symmetric(vertical: 5),

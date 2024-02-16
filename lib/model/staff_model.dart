@@ -12,6 +12,8 @@ class StaffModel {
   double? overTimeHour;
   double? overTimeWage;
   double? balanceSalary;
+  double? advancePaid;
+  double? totalWorkingDays;
 
   StaffModel(
       {this.name,
@@ -24,7 +26,7 @@ class StaffModel {
       this.salaryType,
       this.overTimeHour,
       this.overTimeWage,
-      this.balanceSalary});
+      this.balanceSalary,this.advancePaid,this.totalWorkingDays});
 
   factory StaffModel.fromMap(Map<String, dynamic> map) {
     return StaffModel(
@@ -38,7 +40,10 @@ class StaffModel {
         overTimeHour: map['overTimeHour'] ?? 0,
         overTimeWage: map['overTimeWage'] ?? 0,
         salary: map['salary'] ?? 0,
-        balanceSalary: map['balanceSalary'] ?? 0,);
+        balanceSalary: map['balanceSalary'] ?? 0,
+        advancePaid: map['advancePaid'] ?? 0,
+      totalWorkingDays: map['totalWorkingDays'] ?? 0,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -54,6 +59,8 @@ class StaffModel {
       'overTimeHour': overTimeHour,
       'overTimeWage': overTimeWage,
       'balanceSalary': balanceSalary,
+      'advancePaid': advancePaid,
+      'totalWorkingDays': totalWorkingDays,
     };
   }
 }
