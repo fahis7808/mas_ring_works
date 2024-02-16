@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:mas_ring_works/model/payment_model.dart';
+
 class StaffModel {
   String? name;
   String? email;
@@ -12,8 +14,10 @@ class StaffModel {
   double? overTimeHour;
   double? overTimeWage;
   double? balanceSalary;
+  double? totalSalary;
   double? advancePaid;
   double? totalWorkingDays;
+  List<PaymentModelList>? paymentList;
 
   StaffModel(
       {this.name,
@@ -26,23 +30,31 @@ class StaffModel {
       this.salaryType,
       this.overTimeHour,
       this.overTimeWage,
-      this.balanceSalary,this.advancePaid,this.totalWorkingDays});
+      this.balanceSalary,
+      this.totalSalary,
+      this.advancePaid,
+      this.totalWorkingDays,
+        this.paymentList,
+      });
 
   factory StaffModel.fromMap(Map<String, dynamic> map) {
     return StaffModel(
-        name: map['name'] ?? '',
-        email: map['email'] ?? '',
-        photo: map['photo'] ?? '',
-        phoneNumber: map['phoneNumber'] ?? '',
-        id: map['id'] ?? 0,
-        jobType: map['jobType'] ?? '',
-        salaryType: map['salaryType'] ?? '',
-        overTimeHour: map['overTimeHour'] ?? 0,
-        overTimeWage: map['overTimeWage'] ?? 0,
-        salary: map['salary'] ?? 0,
-        balanceSalary: map['balanceSalary'] ?? 0,
-        advancePaid: map['advancePaid'] ?? 0,
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      photo: map['photo'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
+      id: map['id'] ?? 0,
+      jobType: map['jobType'] ?? '',
+      salaryType: map['salaryType'] ?? '',
+      overTimeHour: map['overTimeHour'] ?? 0,
+      overTimeWage: map['overTimeWage'] ?? 0,
+      salary: map['salary'] ?? 0,
+        totalSalary: map['totalSalary'] ?? 0,
+      balanceSalary: map['balanceSalary'] ?? 0,
+      advancePaid: map['advancePaid'] ?? 0,
       totalWorkingDays: map['totalWorkingDays'] ?? 0,
+        paymentList: List<PaymentModelList>.from((map['paymentModelList'] ?? [])
+            .map((x) => PaymentModelList.fromMap(x)))
     );
   }
 
@@ -58,9 +70,12 @@ class StaffModel {
       'salaryType': salaryType,
       'overTimeHour': overTimeHour,
       'overTimeWage': overTimeWage,
+      'totalSalary': totalSalary,
       'balanceSalary': balanceSalary,
       'advancePaid': advancePaid,
       'totalWorkingDays': totalWorkingDays,
+      'paymentModelList': paymentList?.map((e) => e.toMap()).toList()
+
     };
   }
 }

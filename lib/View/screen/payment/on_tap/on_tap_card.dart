@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:mas_ring_works/View/screen/widget/custom_card.dart';
 import 'package:mas_ring_works/View/screen/widget/title_text_widget.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
+import 'package:mas_ring_works/model/payment_model.dart';
 
 class OnTapCArd extends StatelessWidget {
-  const OnTapCArd({Key? key}) : super(key: key);
+  final PaymentModelList paymentModelList;
+  const OnTapCArd({super.key, required this.paymentModelList});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,8 @@ class OnTapCArd extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TitleTextWidget(title: "Date", text: "24/11/2023"),
-              TitleTextWidget(title: "Amount", text: "1000")
+              TitleTextWidget(title: "Date", text: paymentModelList.date?.toString() ?? ""),
+              TitleTextWidget(title: "Amount", text: paymentModelList.amount?.toString() ?? "")
             ],
           ),
       SizedBox(height: 10,),
@@ -30,7 +32,7 @@ class OnTapCArd extends StatelessWidget {
                 text: "Reason : ",style: AppFont.grayTextTitle,
               ),
               TextSpan(
-                text: 'nothing',
+                text: paymentModelList.reason?.toString() ?? "",
                 style: AppFont.smallTitle
               ),
             ],

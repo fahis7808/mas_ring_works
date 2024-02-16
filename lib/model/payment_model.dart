@@ -1,44 +1,29 @@
 import 'dart:core';
 
-class PaymentModel {
-  int? staffId;
-  String? staffName;
+
+class PaymentModelList {
   String? date;
   String? reason;
-  double? balance;
-  String? staffNumber;
-  double? advanceAmount;
+  double? amount;
 
-  PaymentModel({
-    this.staffName,
-    this.balance,
-    this.staffNumber,
-    this.staffId,
+  PaymentModelList({
     this.reason,
     this.date,
-    this.advanceAmount,
+    this.amount,
   });
 
-  factory PaymentModel.fromMap(Map<String, dynamic> map) {
-    return PaymentModel(
-        staffName: map['staffName'] ?? '',
-        balance: map['balance'] ?? 0,
-        staffNumber: map['staffNumber'] ?? '',
-        staffId: map['staffId'] ?? 0,
+  factory PaymentModelList.fromMap(Map<String, dynamic> map) {
+    return PaymentModelList(
         date: map['date'] ?? '',
-        advanceAmount: map['advanceAmount'] ?? 0,
+        amount: map['amount'] ?? 0,
         reason: map['reason'] ?? "");
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'staffName': staffName,
-      'balance': balance,
-      'staffNumber': staffNumber,
-      'staffId': staffId,
       'reason': reason,
       'date': date,
-      'advanceAmount': advanceAmount,
+      'amount': amount,
     };
   }
 }
