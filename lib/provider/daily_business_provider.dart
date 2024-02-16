@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../model/staff_model.dart';
 import '../model/task_model.dart';
@@ -6,6 +7,7 @@ import '../service/firebase_service.dart';
 
 class DailyBusinessProvider extends ChangeNotifier {
   List<TaskModel> taskList = [];
+  String? date = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   DailyBusinessProvider() {
     getDataFromFireStore();
@@ -15,8 +17,13 @@ class DailyBusinessProvider extends ChangeNotifier {
   Future<void> getDataFromFireStore() async {
     List<Map<String, dynamic>> list =
         await FirebaseService.getDataFromFireStore("Task Details");
-    taskList = list.map((data) => TaskModel.fromMap(data)).toList();
-    notifyListeners();
+
+    List<TaskModel> dailyList = list.map((data) => TaskModel.fromMap(data)).toList();
+  print(dailyList.map((e) => e.workDate));
+   taskList = dailyList.where((element) => element.workDate == date).toList();
+
+  print(taskList);
+  notifyListeners();
   }
 
   Future<void> getStaffData() async {
