@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
   final void Function() onTap;
   final EdgeInsetsGeometry? padding;
   final TextStyle? textStyle;
+  final Widget? widget;
 
   const CustomButton(
       {this.color,
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
       required this.text,
       required this.onTap,
       this.padding,
-      this.textStyle});
+      this.textStyle, this.widget});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class CustomButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+           widget ?? Text(
               text,
               style: textStyle ?? AppFont.buttonText,
             ),

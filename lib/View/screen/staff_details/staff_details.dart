@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/staff_details/add_staff.dart';
 import 'package:mas_ring_works/View/screen/staff_details/staff_profile_page.dart';
+import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_floating_action_button.dart';
 import 'package:mas_ring_works/provider/staff_provider.dart';
@@ -22,7 +23,7 @@ class StaffDetails extends StatelessWidget {
           appBar: CustomAppBar(
             title: "Staff Details",
           ),
-          body: Padding(
+          body:data.isLoading ? CustomCircularProgressIndicator() : Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView.builder(
                 itemCount: data.staffList.length,
