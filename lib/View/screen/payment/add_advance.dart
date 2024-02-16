@@ -31,25 +31,20 @@ class AddAdvancePayment extends StatelessWidget {
                     items:
                         data.staffList.map((e) => e.name.toString()).toList(),
                     onChanged: (val) {
-                      data.paymentModel.staffName = val;
                       data.staffModel =
                           data.staffList.firstWhere((e) => e.name == val);
-                      data.paymentModel.staffId = data.staffModel.id;
-                      data.paymentModel.staffNumber = data.staffModel.phoneNumber;
                       data.onRefresh();
                     },
-                    value: data.paymentModel.staffName,
+                    value: data.staffModel.name,
                     labelText: "Select Staff",
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   CustomTextField(
-                    value: data.paymentModel.staffNumber,
+                    readOnly: true,
+                    value: data.staffModel.phoneNumber,
                     labelText: "Mobile Number",
-                    onChanged: (val) {
-                      data.paymentModel.staffNumber = val;
-                    },
                   ),
                   const SizedBox(
                     height: 15,
@@ -66,13 +61,13 @@ class AddAdvancePayment extends StatelessWidget {
                               value: DateTime.now(),
                               controller: data.dateController,
                               onChanged: (val) {
-                                data.paymentModel.date = val;
+                                data.paymentModeList.date = val;
                               },
                               onDateChanged: (val) {
                                 if (val != null) {
                                   String formattedDate =
-                                  DateFormat('dd-MM-yyyy').format(val);
-                                  data.paymentModel.date = formattedDate;
+                                      DateFormat('dd-MM-yyyy').format(val);
+                                  data.paymentModeList.date = formattedDate;
                                 }
                               },
                             ),
@@ -80,10 +75,10 @@ class AddAdvancePayment extends StatelessWidget {
                               height: 10,
                             ),
                             CustomTextField(
-                              value: data.paymentModel.reason,
+                              value: data.paymentModeList.reason,
                               labelText: "Reason",
                               onChanged: (val) {
-                                data.paymentModel.reason = val;
+                                data.paymentModeList.reason = val;
                               },
                             ),
                             const SizedBox(
@@ -94,11 +89,10 @@ class AddAdvancePayment extends StatelessWidget {
                                 Expanded(
                                   child: CustomTextField(
                                     readOnly: true,
-                                    value:
-                                        data.staffModel.balanceSalary?.toString() ??
-                                            "0",
+                                    value: data.staffModel.balanceSalary
+                                            ?.toString() ??
+                                        "0",
                                     labelText: "Balance",
-                                    onChanged: (val) {},
                                   ),
                                 ),
                                 const SizedBox(
@@ -106,12 +100,12 @@ class AddAdvancePayment extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: CustomTextField(
-                                    value: data.paymentModel.advanceAmount
+                                    value: data.paymentModeList.amount
                                             ?.toString() ??
                                         "",
                                     labelText: "Advance",
                                     onChanged: (val) {
-                                      data.paymentModel.advanceAmount =
+                                      data.paymentModeList.amount =
                                           val.toDouble();
                                     },
                                   ),
