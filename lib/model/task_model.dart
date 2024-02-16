@@ -21,6 +21,7 @@ class TaskModel {
   String? driverMobile;
   String? overTime;
   double? overTimeCharge;
+  String? status;
 
   TaskModel(
       {this.taskName,
@@ -40,7 +41,7 @@ class TaskModel {
       this.driverName,
       this.driverMobile,
       this.overTime,
-      this.overTimeCharge});
+      this.overTimeCharge,this.status});
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
     return TaskModel(
@@ -63,6 +64,7 @@ class TaskModel {
       driverMobile: map['driverMobile'] ?? '',
       overTime: map['overTime'] ?? '',
       overTimeCharge: map['overTimeCharge'] ?? 0,
+      status: map['status'] ?? "",
     );
   }
 
@@ -79,13 +81,14 @@ class TaskModel {
       'item': item,
       'amount': amount,
       'vehicleNumber': vehicleNumber,
-      'staffData': staffData?.map((e) => e.toMap()).toList(),
+      'staffData': staffData?.map((e) => {'id': e.id, 'name': e.name}).toList(),
       'startTime': startTime,
       'endTime': endTime,
       'driverName': driverName,
       'driverMobile': driverMobile,
       'overTime': overTime,
       'overTimeCharge': overTimeCharge,
+      'status': status,
     };
   }
 }

@@ -20,7 +20,7 @@ class OnDailyCardTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "first task"),
+      appBar: CustomAppBar(title: taskModel.taskName.toString()),
       body: ChangeNotifierProvider(
         create: (ctx) => DailyBusinessProvider(),
         child: Consumer<DailyBusinessProvider>(

@@ -9,6 +9,7 @@ class DailyBusinessProvider extends ChangeNotifier {
 
   DailyBusinessProvider() {
     getDataFromFireStore();
+    getStaffData();
   }
 
   Future<void> getDataFromFireStore() async {
@@ -18,29 +19,46 @@ class DailyBusinessProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  salaryCalculation() {
-    /*  Map<String, double> staffSalaryMap = {};
-    for (TaskModel task in taskList) {
-      for (StaffModel staff in task.staffData ?? []) {
-        double salary = staff.overTimeWage ?? 0.0;
-        staff.balanceSalary = (staff.balanceSalary) + salary;
-        staffSalaryMap[(staff.id ?? "").toString()] = (staffSalaryMap[(staff.id ?? "").toString()] ?? 0.0) + salary;
-      }
-    }
-    print(staffSalaryMap);*/
+  Future<void> getStaffData() async {
+    List<Map<String, dynamic>> list =
+        await FirebaseService.getDataFromFireStore("Staff Details");
+    staffList = list.map((data) => StaffModel.fromMap(data)).toList();
+    notifyListeners();
   }
+
+  List<StaffModel> staffList = [];
 
   Future<String> saveData(TaskModel taskData) async {
     for (StaffModel staff in taskData.staffData ?? []) {
-      staff.balanceSalary = (staff.balanceSalary ?? 0.0) +
-          (staff.salary ?? 0.0) +
+      StaffModel staffModel = staffList.firstWhere((e) => staff.id == e.id,
+          orElse: () =>
+              StaffModel());
+      print("Staff Name: ${staff.name}");
+      print("Staff Model Name: ${staffModel.name}");
+
+      /// balanceSalary
+      staffModel.balanceSalary = (staffModel.balanceSalary ?? 0.0) +
+          (staffModel.salary ?? 0.0) +
           (taskData.overTimeCharge ?? 0.0);
+
+      /// total salary
+      staffModel.totalSalary = (staffModel.totalSalary ?? 0.0) +
+          (staffModel.salary ?? 0.0) +
+          (taskData.overTimeCharge ?? 0.0);
+
+      /// total Working Days
+      staffModel.totalWorkingDays = (staffModel.totalWorkingDays?? 0.0) +1;
+
+      taskData.status = "Finished";
+
       await FirebaseService.saveUserDataToFirebase(
-          staff.id.toString(), "Staff Details", staff.toMap());
+          staffModel.id.toString(), "Staff Details", staffModel.toMap());
     }
 
+    // print(taskData.toMap());
     final response = await FirebaseService.saveUserDataToFirebase(
         taskData.id.toString(), "Task Details", taskData.toMap());
     return response;
+    // return "";
   }
 }
