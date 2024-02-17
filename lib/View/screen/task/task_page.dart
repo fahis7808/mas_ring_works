@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/task/add_task.dart';
+import 'package:mas_ring_works/View/screen/widget/delete_alert.dart';
 import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_floating_action_button.dart';
@@ -127,7 +128,16 @@ class TaskPage extends StatelessWidget {
                                                   text:
                                                       val.workDate.toString()),
                                               DeleteEditButton(
-                                                  onDelete: () {},
+                                                  onDelete: () {
+                                                    showDialog(context: context, builder: (ctx) => DeleteAlert(onTap: (){
+                                                      data.deleteData(val.id.toString()).then((value) {
+                                                        if(value == "Success"){
+                                                          Navigator.pop(context);
+                                                          data.getDataFromFireStore();
+                                                        }
+                                                      });
+                                                    },));
+                                                  },
                                                   onEdit: () {})
                                             ],
                                           )

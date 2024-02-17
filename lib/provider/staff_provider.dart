@@ -67,6 +67,12 @@ class StaffProvider extends ChangeNotifier {
     }
   }
 
+  Future<String> deleteData(String docId) async{
+    var response = await FirebaseService.deleteDataFromFirebase(docId, collectionName);
+    return response;
+  }
+
+
   Future<void> getPreviousDocId() async {
     try {
       prevDocId = await FirebaseService.getDocId(collectionName);

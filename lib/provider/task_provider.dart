@@ -98,6 +98,12 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
+  Future<String> deleteData(String docId) async{
+    print(docId);
+    var response = await FirebaseService.deleteDataFromFirebase(docId, collectionName);
+    return response;
+  }
+
   Future<String> saveData() async {
     isButtonLoading = true;
     notifyListeners();

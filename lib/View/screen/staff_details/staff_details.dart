@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_fonts.dart';
+import '../widget/delete_alert.dart';
 import '../widget/status_card.dart';
 
 class StaffDetails extends StatelessWidget {
@@ -94,7 +95,16 @@ class StaffDetails extends StatelessWidget {
                                               Row(
                                                 children: [
                                                   IconButton(
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        showDialog(context: context, builder: (ctx) => DeleteAlert(onTap: (){
+                                                          data.deleteData(val.id.toString()).then((value) {
+                                                            if(value == "Success"){
+                                                              Navigator.pop(context);
+                                                              data.getDataFromFireStore();
+                                                            }
+                                                          });
+                                                        },));
+                                                      },
                                                       icon: const Icon(
                                                         Icons.delete,
                                                         color: AppColors.gray,

@@ -104,7 +104,24 @@ class FirebaseService{
       }
     } else {
       print("User ID not found.");
-      return ""; // Return an empty list
+      return "";
+    }
+  }
+
+  static Future<String> deleteDataFromFirebase(
+      String docId, String collectionName) async {
+      String? userDocId = await getUserDocId();
+    try {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(userDocId)
+          .collection(collectionName)
+          .doc(docId)
+          .delete();
+      return "Success";
+    } catch (e) {
+      print("Error deleting document: $e");
+      return "";
     }
   }
 }
