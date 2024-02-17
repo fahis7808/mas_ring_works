@@ -7,6 +7,7 @@ import 'package:mas_ring_works/util/snack_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget/circular_progress_indicator.dart';
 import '../../widget/custom_button/custom_button.dart';
 import '../../widget/custom_date_field.dart';
 import '../../widget/custom_dropdown_field.dart';
@@ -123,6 +124,11 @@ class AddAdvancePayment extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(
+                        widget: data.isButtonLoading
+                            ? CustomCircularProgressIndicator(
+                                isButton: true,
+                              )
+                            : null,
                         text: "ADD",
                         onTap: () {
                           data.saveData().then((value) {

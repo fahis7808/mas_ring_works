@@ -12,6 +12,7 @@ class StaffProvider extends ChangeNotifier {
   String? prevDocId;
 
   bool isLoading = true;
+  bool isButtonLoading = false;
 
   String? date = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
@@ -43,7 +44,7 @@ class StaffProvider extends ChangeNotifier {
   }
 
   Future<String> saveData() async {
-    isLoading = true;
+    isButtonLoading = true;
     notifyListeners();
     try {
       if (prevDocId == null || prevDocId == "") {
@@ -55,11 +56,11 @@ class StaffProvider extends ChangeNotifier {
       staffModel.id = int.parse(prevDocId!); // Convert to int properly
       final response = await FirebaseService.saveUserDataToFirebase(
           prevDocId!, collectionName, staffModel.toMap());
-      isLoading = false;
+      isButtonLoading = false;
       notifyListeners();
       return response;
     } catch (e) {
-      isLoading = false;
+      isButtonLoading = false;
       notifyListeners();
       print("Error saving data: $e");
       return "Error";

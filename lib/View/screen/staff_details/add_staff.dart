@@ -164,7 +164,7 @@ class RegisterStaff extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(
                         widget:
-                            data.isLoading ? CustomCircularProgressIndicator(isButton: true,) : null,
+                            data.isButtonLoading ? CustomCircularProgressIndicator(isButton: true,) : null,
                         text: "ADD STAFF",
                         onTap: () {
                           if(!data.isLoading){

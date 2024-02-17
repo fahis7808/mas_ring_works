@@ -89,28 +89,50 @@ class StaffProfilePage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(
-                    readOnly: true,
-                    value: staffData.totalWorkingDays?.toString() ?? "",
-                    labelText: "Total Working Days",
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          readOnly: true,
+                          value: staffData.totalWorkingDays?.toString() ?? "",
+                          labelText: "Total Working Days",
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Expanded(
+                        child: CustomTextField(
+                          readOnly: true,
+                          value: staffData.totalSalary?.toString() ?? "",
+                          labelText: "Total Salary",
+                        ),
+                      ),
+
+                    ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(
-                    readOnly: true,
-                    value: staffData.advancePaid?.toString() ?? "",
-                    labelText: "Advance Paid",
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          readOnly: true,
+                          value: staffData.advancePaid?.toString() ?? "",
+                          labelText: "Advance Paid",
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Expanded(
+                        child: CustomTextField(
+                          readOnly: true,
+                          value: staffData.balanceSalary.toString(),
+                          labelText: "Balance Payment",
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextField(
-                    readOnly: true,
-                    value: staffData.balanceSalary.toString(),
-                    labelText: "Balance Payment",
-                  ),
-                  SizedBox(height: 20),
+
+                  SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(

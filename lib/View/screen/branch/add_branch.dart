@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/provider/branch_provider.dart';
 import 'package:mas_ring_works/util/snack_bar.dart';
@@ -79,6 +80,7 @@ class AddBranch extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(
+                      widget: data.isButtonLoading ? CustomCircularProgressIndicator(isButton: true,) : null,
                         text: "ADD BRANCH",
                         onTap: () {
                           data.saveData().then((value) {

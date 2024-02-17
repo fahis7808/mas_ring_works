@@ -12,6 +12,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../util/snack_bar.dart';
+import '../../widget/circular_progress_indicator.dart';
 import '../../widget/custom_button/custom_button.dart';
 
 class AddTask extends StatelessWidget {
@@ -34,6 +35,7 @@ class AddTask extends StatelessWidget {
                     labelText: "Customer",
                     onChanged: (val) {
                       data.taskModel.customerName = val;
+                      data.onRefresh();
                     },
                   ),
                   const SizedBox(
@@ -49,21 +51,22 @@ class AddTask extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
+
                   CustomTextField(
-                    value: data.taskModel.siteName,
-                    labelText: "Site Name",
+                    value: data.taskModel.location,
+                    labelText: "Location",
                     onChanged: (val) {
-                      data.taskModel.siteName = val;
+                      data.taskModel.location = val;
                     },
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   CustomTextField(
-                    value: data.taskModel.location,
-                    labelText: "Location",
+                    value: "Trip_title_${DateFormat('dd/MM/yy').format(DateTime.now())}",
+                    labelText: "Task Name",
                     onChanged: (val) {
-                      data.taskModel.location = val;
+                      data.taskModel.siteName = val;
                     },
                   ),
                   const SizedBox(
@@ -105,6 +108,7 @@ class AddTask extends StatelessWidget {
                     children: [
                       Expanded(
                           child: CustomTextField(
+                            keyboardType: TextInputType.number,
                         value: data.taskModel.unit?.toString() ?? "",
                         labelText: "Unit",
                         onChanged: (val) {
@@ -116,7 +120,8 @@ class AddTask extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomTextField(
-                        value: data.taskModel.amount?.toString() ?? "",
+                            keyboardType: TextInputType.number,
+                            value: data.taskModel.amount?.toString() ?? "",
                         labelText: "Amount",
                         onChanged: (val) {
                           data.taskModel.amount = val.toDouble();
@@ -132,10 +137,11 @@ class AddTask extends StatelessWidget {
                         .map((e) => e.vehicleNumber.toString())
                         .toList(),
                     onChanged: (val) {
-                      data.taskModel.vehicleNumber = val;
-                      data.selectedVehicle = data.vehicleList
-                          .firstWhere((element) => element.driverName == val);
+                      data.selectedVehicle = data.vehicleList.firstWhere(
+                            (element) => element.vehicleNumber == val);
+
                     },
+
                     value: data.taskModel.vehicleNumber,
                     labelText: "Select Vehicle",
                   ),
@@ -199,6 +205,8 @@ class AddTask extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(
+                        widget:
+                        data.isButtonLoading ? CustomCircularProgressIndicator(isButton: true,) : null,
                         text: "ADD STAFF",
                         onTap: () {
                           data.saveData().then((value) {

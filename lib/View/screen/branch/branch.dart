@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mas_ring_works/View/screen/branch/add_branch.dart';
+import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_app_bar.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_floating_action_button.dart';
 import 'package:mas_ring_works/provider/branch_provider.dart';
@@ -20,57 +21,73 @@ class BranchPage extends StatelessWidget {
       create: (ctx) => BranchProvider(),
       child: Consumer<BranchProvider>(builder: (context, data, _) {
         return Scaffold(
-          appBar: CustomAppBar(
+          appBar: const CustomAppBar(
             title: "Branch",
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView.builder(
-                itemCount: data.branchList.length,
-                itemBuilder: (context, index) {
-                  final val = data.branchList[index];
-                  return CustomCard(
-                      child: Row(
-                    children: [
-                      Icon(
-                        Icons.house,
-                        size: 80,
-                        color: AppColors.gray,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              val.branchName.toString(),
-                              style: AppFont.gridText,
-                            ),
-                            Text(
-                              val.branchMobile.toString(),
-                              style: AppFont.mediumText,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: data.isLoading
+              ? const CustomCircularProgressIndicator()
+              : Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: data.branchList.isEmpty
+                      ? Center(
+                          child: Text(
+                            "No Data Found",
+                            style: AppFont.title,
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: data.branchList.length,
+                          itemBuilder: (context, index) {
+                            final val = data.branchList[index];
+                            return CustomCard(
+                                child: Row(
                               children: [
-                                TitleTextWidget(
-                                    title: "Location",
-                                    text: val.branchLocation.toString()),
-                                DeleteEditButton(onDelete: () {}, onEdit: () {})
+                                const Icon(
+                                  Icons.house,
+                                  size: 80,
+                                  color: AppColors.gray,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        val.branchName.toString(),
+                                        style: AppFont.gridText,
+                                      ),
+                                      Text(
+                                        val.branchMobile.toString(),
+                                        style: AppFont.mediumText,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TitleTextWidget(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              title: "Location",
+                                              text: val.branchLocation
+                                                  .toString()),
+                                          DeleteEditButton(
+                                              onDelete: () {}, onEdit: () {})
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
                               ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ));
-                }),
-          ),
+                            ));
+                          }),
+                ),
           floatingActionButton: CustomFloatingActionButton(onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => AddBranch())).then((value) => data.getDataFromFireStore());
+                    context, MaterialPageRoute(builder: (_) => const AddBranch()))
+                .then((value) => data.getDataFromFireStore());
           }),
         );
       }),

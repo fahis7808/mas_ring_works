@@ -20,17 +20,19 @@ class StaffDetails extends StatelessWidget {
       create: (ctx) => StaffProvider(),
       child: Consumer<StaffProvider>(builder: (context, data, _) {
         return Scaffold(
-          appBar: CustomAppBar(
+          appBar: const CustomAppBar(
             title: "Staff Details",
           ),
           body: data.isLoading
-              ? CustomCircularProgressIndicator()
+              ? const CustomCircularProgressIndicator()
               : Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: data.staffList.isEmpty
-                      ? Text(
-                          "No Staff Data Available",
-                          style: AppFont.cardText,
+                      ? Center(
+                          child: Text(
+                            "No Data Found",
+                            style: AppFont.title,
+                          ),
                         )
                       : ListView.builder(
                           itemCount: data.staffList.length,
@@ -43,11 +45,12 @@ class StaffDetails extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (_) => StaffProfilePage(
                                                 staffData: val,
-                                            provider: data,
+                                                provider: data,
                                               )));
                                 },
                                 child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 5),
                                     decoration: BoxDecoration(
                                         color: AppColors.cardColor,
                                         borderRadius:
@@ -86,18 +89,19 @@ class StaffDetails extends StatelessWidget {
                                           )),
                                           Column(
                                             children: [
-                                              StatusCard(status: "ON WORK"),
+                                              const StatusCard(
+                                                  status: "ON WORK"),
                                               Row(
                                                 children: [
                                                   IconButton(
                                                       onPressed: () {},
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.delete,
                                                         color: AppColors.gray,
                                                       )),
                                                   IconButton(
                                                       onPressed: () {},
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.edit,
                                                         color: AppColors.gray,
                                                       ))
@@ -113,7 +117,7 @@ class StaffDetails extends StatelessWidget {
           floatingActionButton: CustomFloatingActionButton(
             onTap: () {
               Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => RegisterStaff()))
+                      MaterialPageRoute(builder: (_) => const RegisterStaff()))
                   .then((value) => data.getDataFromFireStore());
             },
           ),

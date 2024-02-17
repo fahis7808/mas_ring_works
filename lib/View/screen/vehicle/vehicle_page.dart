@@ -22,15 +22,17 @@ class VehiclePage extends StatelessWidget {
       create: (ctx) => VehicleProvider(),
       child: Consumer<VehicleProvider>(builder: (context, data, _) {
         return Scaffold(
-          appBar: CustomAppBar(title: "Vehicle"),
+          appBar: const CustomAppBar(title: "Vehicle"),
           body: data.isLoading
-              ? CustomCircularProgressIndicator()
+              ? const CustomCircularProgressIndicator()
               : Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: data.vehicleList.isEmpty
-                      ? Text(
-                          "No Vehicle Data",
-                          style: AppFont.cardText,
+                      ? Center(
+                          child: Text(
+                            "No Data Found",
+                            style: AppFont.title,
+                          ),
                         )
                       : ListView.builder(
                           itemCount: data.vehicleList.length,
@@ -41,7 +43,7 @@ class VehiclePage extends StatelessWidget {
                               children: [
                                 Column(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.car_crash,
                                       size: 70,
                                       color: AppColors.gray,
@@ -52,7 +54,7 @@ class VehiclePage extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Expanded(
@@ -71,7 +73,7 @@ class VehiclePage extends StatelessWidget {
                                 )),
                                 Column(
                                   children: [
-                                    StatusCard(status: "ON WORK"),
+                                    const StatusCard(status: "ON WORK"),
                                     DeleteEditButton(
                                         onDelete: () {}, onEdit: () {})
                                   ],
@@ -81,8 +83,8 @@ class VehiclePage extends StatelessWidget {
                           }),
                 ),
           floatingActionButton: CustomFloatingActionButton(onTap: () {
-            Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => AddVehicle()))
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const AddVehicle()))
                 .then((value) => data.getDataFromFireStore());
           }),
         );
