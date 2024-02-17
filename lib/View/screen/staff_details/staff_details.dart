@@ -23,81 +23,93 @@ class StaffDetails extends StatelessWidget {
           appBar: CustomAppBar(
             title: "Staff Details",
           ),
-          body:data.isLoading ? CustomCircularProgressIndicator() : Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ListView.builder(
-                itemCount: data.staffList.length,
-                itemBuilder: (context, index) {
-                  final val = data.staffList[index];
-                  return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => StaffProfilePage(staffData: val,)));
-                      },
-                      child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          decoration: BoxDecoration(
-                              color: AppColors.cardColor,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Column(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      size: 70,
-                                      color: AppColors.gray,
-                                    ),
-                                    /* Text(
+          body: data.isLoading
+              ? CustomCircularProgressIndicator()
+              : Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: data.staffList.isEmpty
+                      ? Text(
+                          "No Staff Data Available",
+                          style: AppFont.cardText,
+                        )
+                      : ListView.builder(
+                          itemCount: data.staffList.length,
+                          itemBuilder: (context, index) {
+                            final val = data.staffList[index];
+                            return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => StaffProfilePage(
+                                                staffData: val,
+                                            provider: data,
+                                              )));
+                                },
+                                child: Container(
+                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.cardColor,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          const Column(
+                                            children: [
+                                              Icon(
+                                                Icons.person,
+                                                size: 70,
+                                                color: AppColors.gray,
+                                              ),
+                                              /* Text(
                                       "Fahis",
                                       style: AppFont.smallTitle,
                                     )*/
-                                  ],
-                                ),
-                                Expanded(
-                                    child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      val.name.toString(),
-                                      style: AppFont.gridText,
-                                    ),
-                                    Text(
-                                      val.phoneNumber.toString(),
-                                      style: AppFont.mediumText,
-                                    ),
-                                  ],
-                                )),
-                                Column(
-                                  children: [
-                                    StatusCard(status: "ON WORK"),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: AppColors.gray,
-                                            )),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.edit,
-                                              color: AppColors.gray,
-                                            ))
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          )));
-                }),
-          ),
+                                            ],
+                                          ),
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                val.name.toString(),
+                                                style: AppFont.gridText,
+                                              ),
+                                              Text(
+                                                val.phoneNumber.toString(),
+                                                style: AppFont.mediumText,
+                                              ),
+                                            ],
+                                          )),
+                                          Column(
+                                            children: [
+                                              StatusCard(status: "ON WORK"),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(
+                                                        Icons.delete,
+                                                        color: AppColors.gray,
+                                                      )),
+                                                  IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(
+                                                        Icons.edit,
+                                                        color: AppColors.gray,
+                                                      ))
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )));
+                          }),
+                ),
           floatingActionButton: CustomFloatingActionButton(
             onTap: () {
               Navigator.push(context,

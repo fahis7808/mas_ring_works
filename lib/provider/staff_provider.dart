@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:mas_ring_works/model/staff_model.dart';
 import 'package:mas_ring_works/service/firebase_service.dart';
+
+import '../model/payment_model.dart';
 
 class StaffProvider extends ChangeNotifier {
   StaffModel staffModel = StaffModel();
@@ -9,6 +12,8 @@ class StaffProvider extends ChangeNotifier {
   String? prevDocId;
 
   bool isLoading = true;
+
+  String? date = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   StaffProvider() {
     _init();
@@ -26,7 +31,7 @@ class StaffProvider extends ChangeNotifier {
     notifyListeners();
     try {
       List<Map<String, dynamic>> list =
-      await FirebaseService.getDataFromFireStore(collectionName);
+          await FirebaseService.getDataFromFireStore(collectionName);
       staffList = list.map((data) => StaffModel.fromMap(data)).toList();
     } catch (e) {
       // Handle errors
@@ -69,5 +74,20 @@ class StaffProvider extends ChangeNotifier {
       // Handle errors
       print("Error getting previous doc ID: $e");
     }
+  }
+
+  Future<String> savePayment(StaffModel staffData) async {
+    PaymentModelList paymentModeList = PaymentModelList(
+        date: date,
+        amount: staffData.balanceSalary,
+        reason: "Weekly Settlement");
+    staffData.balanceSalary = 0;
+
+    staffData.paymentList?.add(paymentModeList);
+    final response = await FirebaseService.saveUserDataToFirebase(
+        staffData.id.toString(), "Staff Details", staffData.toMap());
+    print(staffData.toMap());
+    return response;
+    // return "";
   }
 }

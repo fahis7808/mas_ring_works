@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/staff_details/settlment_alert_box.dart';
+import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
 import 'package:mas_ring_works/model/staff_model.dart';
+import 'package:mas_ring_works/provider/staff_provider.dart';
 
 class StaffProfilePage extends StatelessWidget {
   final StaffModel staffData;
+  final StaffProvider provider;
 
-  const StaffProfilePage({super.key, required this.staffData});
+  const StaffProfilePage(
+      {super.key, required this.staffData, required this.provider});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,19 @@ class StaffProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 40,
+            height: 15,
+          ),
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ))
+            ],
           ),
           CircleAvatar(
             child: Icon(
@@ -47,13 +64,13 @@ class StaffProfilePage extends StatelessWidget {
             style: AppFont.buttonText,
           ),
           SizedBox(
-            height: 35,
+            height: 20,
           ),
           Expanded(
               child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 35, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
               child: Column(
                 children: [
                   CustomTextField(
@@ -93,10 +110,24 @@ class StaffProfilePage extends StatelessWidget {
                     value: staffData.balanceSalary.toString(),
                     labelText: "Balance Payment",
                   ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: CustomButton(
+                        text: "Settlement",
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => SettlementAlertBox(
+                                    staffData: staffData,
+                                    staffProvider: provider,
+                                  ));
+                        }),
+                  )
                 ],
               ),
             ),
-          ))
+          )),
         ],
       ),
     );
