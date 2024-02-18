@@ -17,6 +17,7 @@ import '../util/snack_bar.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
   String phoneCode = '+91';
+
   // int? phone;
 
   bool isLoaded = false;
@@ -30,7 +31,7 @@ class AuthenticationProvider extends ChangeNotifier {
   final FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
-  AuthenticationProvider(){
+  AuthenticationProvider() {
     signInCheck();
   }
 
@@ -49,24 +50,32 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   Future<void> signInWithPhone(BuildContext context) async {
+    isLoaded = true;
+    notifyListeners();
     try {
-      final String normalizedPhoneNumber = phoneCode + userData.phoneNumber!.trim();
+      final String normalizedPhoneNumber =
+          phoneCode + userData.phoneNumber!.trim();
       await firebaseAuth.verifyPhoneNumber(
         phoneNumber: normalizedPhoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
           await firebaseAuth.signInWithCredential(phoneAuthCredential);
-          // Authentication successful, you might want to navigate to a new screen here
         },
         verificationFailed: (FirebaseAuthException error) {
           showSnackBar(context, error.message.toString());
-          // Handle verification failed, such as showing an error message
+          isLoaded = false;
+          notifyListeners();
         },
         codeSent: (String verificationId, int? forceResendingToken) {
+          isLoaded = false;
+          notifyListeners();
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => VerificationPage(verificationId: verificationId),
+              builder: (context) =>
+                  VerificationPage(verificationId: verificationId),
             ),
           );
         },
@@ -76,6 +85,8 @@ class AuthenticationProvider extends ChangeNotifier {
       );
     } catch (e) {
       print("Error occurred: $e");
+      isLoaded = false;
+      notifyListeners();
       showSnackBar(context, "An error occurred. Please try again later.");
       // Handle other exceptions if needed
     }
@@ -103,9 +114,13 @@ class AuthenticationProvider extends ChangeNotifier {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => RegistrationPage()));
           }
+          isLoaded = false;
+          notifyListeners();
         });
       }
     } on FirebaseAuthException catch (e) {
+      isLoaded = false;
+      notifyListeners();
       showSnackBar(context, e.toString());
     }
   }
@@ -159,18 +174,20 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-reg(){
+  reg() {
     print(userData);
     print(firebaseAuth.currentUser!.phoneNumber!);
-}
+  }
+
   registerData(BuildContext context) async {
     // UploadTask uploadTask =
     // firebaseStorage.ref().child('profilePic/$uid').putFile(image);
     // TaskSnapshot snapshot = await uploadTask;
     // String downloadUrl = await snapshot.ref.getDownloadURL();
+    isLoaded = true;
+    notifyListeners();
     UserModel userModel = UserModel(
-      name: userData.name,
+        name: userData.name,
         businessName: userData.businessName,
         email: userData.email,
         createdAt: DateTime.now().microsecondsSinceEpoch.toString(),
@@ -178,23 +195,25 @@ reg(){
         uid: firebaseAuth.currentUser!.uid);
     print(userModel);
     // if (image != null) {
-      // ignore: use_build_context_synchronously
-      saveUserDataToFirebase(
-          context: context,
-          userModel: userModel,
-          // profilePic: image!,
-          onSuccess: () {
-            saveUserDataSP().then(
-                  (value) => setSignIn().then(
-                    (value) => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DashboardPage(),
-                    ),
-                        (route) => false),
-              ),
-            );
-          });
+    // ignore: use_build_context_synchronously
+    saveUserDataToFirebase(
+        context: context,
+        userModel: userModel,
+        // profilePic: image!,
+        onSuccess: () {
+          saveUserDataSP().then(
+            (value) => setSignIn().then(
+              (value) => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DashboardPage(),
+                  ),
+                  (route) => false),
+            ),
+          );
+        });
+    isLoaded = false;
+    notifyListeners();
     // } else {
     //   // ignore: use_build_context_synchronously
     //   showSnackBar(context, 'Please Add an Image');
@@ -231,7 +250,7 @@ reg(){
         notifyListeners();
       });
     } on FirebaseAuthException catch (e) {
-        loaded = false;
+      loaded = false;
       showSnackBar(context, e.toString());
       notifyListeners();
     }
@@ -251,5 +270,4 @@ reg(){
     uid = userData.uid;
     notifyListeners();
   }
-
 }

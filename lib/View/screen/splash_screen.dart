@@ -40,7 +40,7 @@ class SplashScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Business \nManagement",
+                          "Mass \nRing Works",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w800,

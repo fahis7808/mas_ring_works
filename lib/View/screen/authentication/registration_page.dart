@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mas_ring_works/View/screen/authentication/login_page.dart';
+import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
@@ -54,7 +54,7 @@ class RegistrationPage extends StatelessWidget {
                     CustomTextField(
                       value: data.userData.name,
                       text: "Name",
-                      onChanged: (val){
+                      onChanged: (val) {
                         data.userData.name = val;
                       },
                     ),
@@ -62,10 +62,10 @@ class RegistrationPage extends StatelessWidget {
                       height: 15,
                     ),
                     CustomTextField(
-                      readOnly: false,
+                      // readOnly: false,
                       value: data.userData.phoneNumber,
                       text: "Mobile",
-                      onChanged: (val){
+                      onChanged: (val) {
                         data.userData.phoneNumber = val;
                       },
                     ),
@@ -75,7 +75,7 @@ class RegistrationPage extends StatelessWidget {
                     CustomTextField(
                       value: data.userData.email,
                       text: "E mail",
-                      onChanged: (val){
+                      onChanged: (val) {
                         data.userData.email = val;
                       },
                     ),
@@ -85,7 +85,7 @@ class RegistrationPage extends StatelessWidget {
                     CustomTextField(
                       value: data.userData.businessName,
                       text: "Business Name",
-                      onChanged: (val){
+                      onChanged: (val) {
                         data.userData.businessName = val;
                       },
                     ),
@@ -95,6 +95,11 @@ class RegistrationPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: CustomButton(
+                          widget: data.isLoaded
+                              ? CustomCircularProgressIndicator(
+                                  isButton: true,
+                                )
+                              : null,
                           text: "REGISTER",
                           onTap: () {
                             // print(data.userData.phoneNumber);

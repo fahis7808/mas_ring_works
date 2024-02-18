@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/widget/circular_progress_indicator.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/authentication_provider.dart';
@@ -42,7 +42,7 @@ class MobileNumberPage extends StatelessWidget {
                 CustomTextField(
                   value: data.userData.phoneNumber?.toString() ?? "",
                   text: "Mobile Number",
-                  onChanged: (val){
+                  onChanged: (val) {
                     data.userData.phoneNumber = val;
                   },
                 ),
@@ -52,9 +52,13 @@ class MobileNumberPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: CustomButton(
+                      widget: data.isLoaded
+                          ? CustomCircularProgressIndicator(
+                              isButton: true,
+                            )
+                          : null,
                       text: "SENT OTP",
                       onTap: () {
-
                         data.signInWithPhone(context);
                         // Navigator.push(
                         //     context,
