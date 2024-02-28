@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mas_ring_works/View/screen/staff_details/add_salary_alert.dart';
 import 'package:mas_ring_works/View/screen/staff_details/settlment_alert_box.dart';
 import 'package:mas_ring_works/View/widget/custom_button/custom_button.dart';
 import 'package:mas_ring_works/View/widget/custom_textfield.dart';
@@ -21,7 +22,7 @@ class StaffProfilePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
@@ -30,123 +31,162 @@ class StaffProfilePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.white,
                   ))
             ],
           ),
-          CircleAvatar(
+          const CircleAvatar(
+            radius: 65,
+            backgroundColor: AppColors.cardColor,
             child: Icon(
               Icons.person,
-              size: 90,
+              size: 80,
               color: AppColors.gray,
             ),
-            radius: 75,
-            backgroundColor: AppColors.cardColor,
           ),
           Text(
             staffData.name.toString(),
             style: AppFont.whiteLargeText,
           ),
-          SizedBox(
+          const SizedBox(
             height: 6,
           ),
           Text(
             staffData.email.toString(),
             style: AppFont.buttonText,
           ),
-          SizedBox(
+          const SizedBox(
             height: 3,
           ),
           Text(
             staffData.phoneNumber.toString(),
             style: AppFont.buttonText,
           ),
-          SizedBox(
-            height: 20,
+          const SizedBox(
+            height: 15,
           ),
           Expanded(
               child: Container(
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
-              child: Column(
-                children: [
-                  CustomTextField(
-                    readOnly: true,
-                    value: staffData.jobType,
-                    labelText: "Job Type",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextField(
-                    readOnly: true,
-                    value: staffData.salary.toString(),
-                    labelText: "Daily Salary",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          readOnly: true,
-                          value: staffData.totalWorkingDays?.toString() ?? "",
-                          labelText: "Total Working Days",
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      readOnly: true,
+                      value: staffData.jobType,
+                      labelText: "Job Type",
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextField(
+                      readOnly: true,
+                      value: staffData.salary.toString(),
+                      labelText: "Daily Salary",
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: staffData.totalWorkingDays?.toString() ?? "",
+                            labelText: "Total Working Days",
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10,),
-                      Expanded(
-                        child: CustomTextField(
-                          readOnly: true,
-                          value: staffData.totalSalary?.toString() ?? "",
-                          labelText: "Total Salary",
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: staffData.totalSalary?.toString() ?? "",
+                            labelText: "Total Salary",
+                          ),
                         ),
-                      ),
 
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          readOnly: true,
-                          value: staffData.advancePaid?.toString() ?? "",
-                          labelText: "Advance Paid",
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: provider.getStaffWorkDaysAndSalary(staffData.id)["workDaysCount"]?.toString() ?? "",
+                            labelText: "Weekly WorkDays",
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10,),
-                      Expanded(
-                        child: CustomTextField(
-                          readOnly: true,
-                          value: staffData.balanceSalary.toString(),
-                          labelText: "Balance Payment",
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: provider.getStaffWorkDaysAndSalary(staffData.id)["weeklySalary"]?.toString() ?? "",
+                            labelText: "Weekly Salary",
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ), const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: staffData.advancePaid?.toString() ?? "",
+                            labelText: "Advance Paid",
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            value: staffData.balanceSalary.toString(),
+                            labelText: "Balance Payment",
+                          ),
+                        ),
+                      ],
+                    ),
 
-                  SizedBox(height: 40),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: CustomButton(
-                        text: "Settlement",
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (ctx) => SettlementAlertBox(
-                                    staffData: staffData,
-                                    staffProvider: provider,
-                                  ));
-                        }),
-                  )
-                ],
+                    const SizedBox(height: 40),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomButton(
+                              text: "Settlement",
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) => SettlementAlertBox(
+                                          staffData: staffData,
+                                          staffProvider: provider,
+                                        ));
+                              }),
+                        ),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: CustomButton(
+                              text: "Add Salary",
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) => AddSalaryAlert(
+                                          staffData: staffData,
+                                          staffProvider: provider,
+                                        )).then((value) => provider.getDataFromFireStore());
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           )),

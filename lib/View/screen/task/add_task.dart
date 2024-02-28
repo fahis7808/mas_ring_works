@@ -7,6 +7,7 @@ import 'package:mas_ring_works/View/widget/custom_textfield.dart';
 import 'package:mas_ring_works/constants/app_colors.dart';
 import 'package:mas_ring_works/constants/app_fonts.dart';
 import 'package:mas_ring_works/model/staff_model.dart';
+import 'package:mas_ring_works/model/task_model.dart';
 import 'package:mas_ring_works/provider/task_provider.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -16,13 +17,18 @@ import '../../widget/circular_progress_indicator.dart';
 import '../../widget/custom_button/custom_button.dart';
 
 class AddTask extends StatelessWidget {
-  const AddTask({Key? key}) : super(key: key);
+  final bool isEdit;
+  final TaskModel? taskData;
+
+  const AddTask({super.key, this.taskData, this.isEdit = false});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (ctx) => TaskProvider(),
       child: Consumer<TaskProvider>(builder: (context, data, _) {
+        List<StaffModel> staffData =
+            isEdit ? taskData?.staffData ?? [] : data.taskModel.staffData ?? [];
         return Scaffold(
           appBar: const CustomAppBar(title: "Add Task"),
           body: SingleChildScrollView(
@@ -31,10 +37,12 @@ class AddTask extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextField(
-                    value: data.taskModel.customerName,
+                    value:
+                        taskData?.customerName ?? data.taskModel.customerName,
                     labelText: "Customer",
                     onChanged: (val) {
                       data.taskModel.customerName = val;
+                      taskData?.customerName = val;
                       data.onRefresh();
                     },
                   ),
@@ -42,31 +50,36 @@ class AddTask extends StatelessWidget {
                     height: 8,
                   ),
                   CustomTextField(
-                    value: data.taskModel.customerMobile,
+                    keyboardType: TextInputType.phone,
+                    value: taskData?.customerMobile ??
+                        data.taskModel.customerMobile,
                     labelText: "Customer Mobile",
                     onChanged: (val) {
                       data.taskModel.customerMobile = val;
+                      taskData?.customerMobile = val;
                     },
                   ),
                   const SizedBox(
                     height: 8,
                   ),
-
                   CustomTextField(
-                    value: data.taskModel.location,
+                    value: taskData?.location ?? data.taskModel.location,
                     labelText: "Location",
                     onChanged: (val) {
                       data.taskModel.location = val;
+                      taskData?.location = val;
                     },
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   CustomTextField(
-                    value: "Trip_title_${DateFormat('dd/MM/yy').format(DateTime.now())}",
+                    value: taskData?.taskName ??
+                        "Trip_title_${DateFormat('dd/MM/yy').format(DateTime.now())}",
                     labelText: "Task Name",
                     onChanged: (val) {
-                      data.taskModel.siteName = val;
+                      data.taskModel.taskName = val;
+                      taskData?.taskName = val;
                     },
                   ),
                   const SizedBox(
@@ -79,12 +92,14 @@ class AddTask extends StatelessWidget {
                     controller: data.dateController,
                     onChanged: (val) {
                       data.taskModel.workDate = val;
+                      taskData?.workDate = val;
                     },
                     onDateChanged: (val) {
                       if (val != null) {
                         String formattedDate =
                             DateFormat('dd-MM-yyyy').format(val);
                         data.taskModel.workDate = formattedDate;
+                        taskData?.workDate = formattedDate;
                       }
                     },
                   ),
@@ -97,8 +112,9 @@ class AddTask extends StatelessWidget {
                         .toList(),
                     onChanged: (val) {
                       data.taskModel.item = val;
+                      taskData?.item = val;
                     },
-                    value: data.taskModel.item,
+                    value: taskData?.item ?? data.taskModel.item,
                     labelText: "Select Item",
                   ),
                   const SizedBox(
@@ -108,10 +124,13 @@ class AddTask extends StatelessWidget {
                     children: [
                       Expanded(
                           child: CustomTextField(
-                            keyboardType: TextInputType.number,
-                        value: data.taskModel.unit?.toString() ?? "",
+                        keyboardType: TextInputType.number,
+                        value: taskData?.unit.toString() ??
+                            data.taskModel.unit?.toString() ??
+                            "",
                         labelText: "Unit",
                         onChanged: (val) {
+                          taskData?.unit = val.toDouble();
                           data.taskModel.unit = val.toDouble();
                         },
                       )),
@@ -120,10 +139,13 @@ class AddTask extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomTextField(
-                            keyboardType: TextInputType.number,
-                            value: data.taskModel.amount?.toString() ?? "",
+                        keyboardType: TextInputType.number,
+                        value: taskData?.amount.toString() ??
+                            data.taskModel.amount?.toString() ??
+                            "",
                         labelText: "Amount",
                         onChanged: (val) {
+                          taskData?.amount = val.toDouble();
                           data.taskModel.amount = val.toDouble();
                         },
                       )),
@@ -138,11 +160,11 @@ class AddTask extends StatelessWidget {
                         .toList(),
                     onChanged: (val) {
                       data.selectedVehicle = data.vehicleList.firstWhere(
-                            (element) => element.vehicleNumber == val);
-
+                          (element) => element.vehicleNumber == val);
+                      taskData?.vehicleNumber = val;
                     },
-
-                    value: data.taskModel.vehicleNumber,
+                    value:
+                        taskData?.vehicleNumber ?? data.taskModel.vehicleNumber,
                     labelText: "Select Vehicle",
                   ),
                   const SizedBox(
@@ -168,8 +190,12 @@ class AddTask extends StatelessWidget {
                             final selectedStaff = data.staffList.firstWhere(
                                 (e) => e.name == val,
                                 orElse: () => StaffModel());
-                            data.addStaff(
-                                selectedStaff); // Callback to notify parent widget
+                            if (!isEdit) {
+                              data.addStaff(selectedStaff);
+                            } else {
+                              data.addEditStaff(
+                                  selectedStaff, taskData?.staffData);
+                            }
                           },
                           value: "",
                           labelText: "Select Staff",
@@ -181,15 +207,22 @@ class AddTask extends StatelessWidget {
                             spacing: 10,
                             runSpacing: 5,
                             children: [
-                              for (StaffModel staff
-                                  in data.taskModel.staffData ?? [])
+                              for (StaffModel staff in staffData ?? [])
                                 InputChip(
                                   label: Text(
                                     staff.name.toString(),
                                     style: AppFont.statusColor,
                                   ),
                                   backgroundColor: AppColors.cardColor,
-                                  onDeleted: () {},
+                                  onDeleted: () {
+                                    if (isEdit) {
+                                      taskData?.staffData?.remove(staff);
+                                      data.onRefresh();
+                                    } else {
+                                      data.taskModel.staffData?.remove(staff);
+                                      data.onRefresh();
+                                    }
+                                  },
                                   deleteIconColor: AppColors.primaryColor,
                                   shape: const StadiumBorder(),
                                 ),
@@ -205,17 +238,30 @@ class AddTask extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: CustomButton(
-                        widget:
-                        data.isButtonLoading ? CustomCircularProgressIndicator(isButton: true,) : null,
+                        widget: data.isButtonLoading
+                            ? CustomCircularProgressIndicator(
+                                isButton: true,
+                              )
+                            : null,
                         text: "ADD STAFF",
                         onTap: () {
-                          data.saveData().then((value) {
-                            if (value == "Success") {
-                              Navigator.pop(context);
-                            } else {
-                              showSnackBar(context, "Something went wrong");
-                            }
-                          });
+                          if (isEdit) {
+                            data.editData(taskData!).then((value) {
+                              if (value == "Success") {
+                                Navigator.pop(context);
+                              } else {
+                                showSnackBar(context, "Something went wrong");
+                              }
+                            });
+                          } else {
+                            data.saveData().then((value) {
+                              if (value == "Success") {
+                                Navigator.pop(context);
+                              } else {
+                                showSnackBar(context, "Something went wrong");
+                              }
+                            });
+                          }
                         }),
                   ),
                 ],

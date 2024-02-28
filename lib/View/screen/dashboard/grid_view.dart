@@ -14,7 +14,7 @@ class GridViewPage extends StatelessWidget {
       itemCount: data.gridName.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4, // Number of columns
-          crossAxisSpacing: 2, // Spacing between columns
+          crossAxisSpacing: 0, // Spacing between columns
           mainAxisSpacing: 30, // Spacing between rows
         ), itemBuilder: (context, index) {
       return InkWell(
@@ -25,7 +25,7 @@ class GridViewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(data.iconList[index], size: 50, weight: 1),
+            Icon(data.iconList[index], size: 45, weight: 1),
             SizedBox(height: 15,),
             Text(
               data.gridName[index],

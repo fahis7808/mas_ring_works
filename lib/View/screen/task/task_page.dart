@@ -89,8 +89,12 @@ class TaskPage extends StatelessWidget {
                                                 text: val.vehicleNumber
                                                     .toString(),
                                               ),
-                                              const StatusCard(
-                                                  status: "STARTED")
+                                              StatusCard(
+                                                status: val.status == null ||
+                                                        val.status == ""
+                                                    ? "IDLE"
+                                                    : val.status.toString(),
+                                              )
                                             ],
                                           ),
                                           const SizedBox(
@@ -127,18 +131,33 @@ class TaskPage extends StatelessWidget {
                                                   title: "Date",
                                                   text:
                                                       val.workDate.toString()),
-                                              DeleteEditButton(
-                                                  onDelete: () {
-                                                    showDialog(context: context, builder: (ctx) => DeleteAlert(onTap: (){
-                                                      data.deleteData(val.id.toString()).then((value) {
-                                                        if(value == "Success"){
-                                                          Navigator.pop(context);
-                                                          data.getDataFromFireStore();
-                                                        }
-                                                      });
-                                                    },));
-                                                  },
-                                                  onEdit: () {})
+                                              DeleteEditButton(onDelete: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (ctx) =>
+                                                        DeleteAlert(
+                                                          onTap: () {
+                                                            data
+                                                                .deleteData(val
+                                                                    .id
+                                                                    .toString())
+                                                                .then((value) {
+                                                              if (value ==
+                                                                  "Success") {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                data.getDataFromFireStore();
+                                                              }
+                                                            });
+                                                          },
+                                                        ));
+                                              }, onEdit: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (ctx) =>
+                                                            AddTask(isEdit: true,taskData: val,)));
+                                              })
                                             ],
                                           )
                                         ],

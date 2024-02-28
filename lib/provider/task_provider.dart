@@ -38,6 +38,16 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addEditStaff(StaffModel staff, List<StaffModel>? staffList) {
+    // staffList ??= [];
+    if (!staffList!.contains(staff)) {
+      staffList.add(staff);
+      print(staffList);
+      notifyListeners();
+    }
+  }
+
+
   void addStaff(StaffModel staff) {
     taskModel.staffData ??= [];
     if (!taskModel.staffData!.contains(staff)) {
@@ -134,6 +144,30 @@ class TaskProvider extends ChangeNotifier {
       return "Error";
     }
   }
+
+
+  Future<String> editData(TaskModel taskModel) async {
+    print("is Edit");
+    isButtonLoading = true;
+    notifyListeners();
+    try {
+      taskModel.driverName = selectedVehicle.driverName;
+      taskModel.driverMobile = selectedVehicle.driverNumber;
+      taskModel.vehicleNumber = selectedVehicle.vehicleNumber;
+       final response = await FirebaseService.saveUserDataToFirebase(
+          taskModel.id.toString(), collectionName, taskModel.toMap());
+      isButtonLoading = false;
+      notifyListeners();
+      return response;
+    } catch (e) {
+      print("Error saving data: $e");
+      isButtonLoading = false;
+      notifyListeners();
+      return "Error";
+    }
+  }
+
+
 
   Future<void> getPreviousDocId() async {
     isLoading = true;

@@ -96,14 +96,24 @@ class StaffDetails extends StatelessWidget {
                                                 children: [
                                                   IconButton(
                                                       onPressed: () {
-                                                        showDialog(context: context, builder: (ctx) => DeleteAlert(onTap: (){
-                                                          data.deleteData(val.id.toString()).then((value) {
-                                                            if(value == "Success"){
-                                                              Navigator.pop(context);
-                                                              data.getDataFromFireStore();
-                                                            }
-                                                          });
-                                                        },));
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (ctx) =>
+                                                                    DeleteAlert(
+                                                                      onTap:
+                                                                          () {
+                                                                        data
+                                                                            .deleteData(val.id.toString())
+                                                                            .then((value) {
+                                                                          if (value ==
+                                                                              "Success") {
+                                                                            Navigator.pop(context);
+                                                                            data.getDataFromFireStore();
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                    ));
                                                       },
                                                       icon: const Icon(
                                                         Icons.delete,

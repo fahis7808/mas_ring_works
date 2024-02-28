@@ -18,6 +18,7 @@ class StaffModel {
   double? advancePaid;
   double? totalWorkingDays;
   List<PaymentModelList>? paymentList;
+  List<StaffTaskModel>? taskList;
 
   StaffModel(
       {this.name,
@@ -34,28 +35,29 @@ class StaffModel {
       this.totalSalary,
       this.advancePaid,
       this.totalWorkingDays,
-        this.paymentList,
-      });
+      this.paymentList,
+      this.taskList});
 
   factory StaffModel.fromMap(Map<String, dynamic> map) {
     return StaffModel(
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      photo: map['photo'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
-      id: map['id'] ?? 0,
-      jobType: map['jobType'] ?? '',
-      salaryType: map['salaryType'] ?? '',
-      overTimeHour: map['overTimeHour'] ?? 0,
-      overTimeWage: map['overTimeWage'] ?? 0,
-      salary: map['salary'] ?? 0,
+        name: map['name'] ?? '',
+        email: map['email'] ?? '',
+        photo: map['photo'] ?? '',
+        phoneNumber: map['phoneNumber'] ?? '',
+        id: map['id'] ?? 0,
+        jobType: map['jobType'] ?? '',
+        salaryType: map['salaryType'] ?? '',
+        overTimeHour: map['overTimeHour'] ?? 0,
+        overTimeWage: map['overTimeWage'] ?? 0,
+        salary: map['salary'] ?? 0,
         totalSalary: map['totalSalary'] ?? 0,
-      balanceSalary: map['balanceSalary'] ?? 0,
-      advancePaid: map['advancePaid'] ?? 0,
-      totalWorkingDays: map['totalWorkingDays'] ?? 0,
+        balanceSalary: map['balanceSalary'] ?? 0,
+        advancePaid: map['advancePaid'] ?? 0,
+        totalWorkingDays: map['totalWorkingDays'] ?? 0,
         paymentList: List<PaymentModelList>.from((map['paymentModelList'] ?? [])
-            .map((x) => PaymentModelList.fromMap(x)))
-    );
+            .map((x) => PaymentModelList.fromMap(x))),
+        taskList: List<StaffTaskModel>.from(
+            (map['task'] ?? []).map((x) => StaffTaskModel.fromMap(x))));
   }
 
   Map<String, dynamic> toMap() {
@@ -74,8 +76,42 @@ class StaffModel {
       'balanceSalary': balanceSalary,
       'advancePaid': advancePaid,
       'totalWorkingDays': totalWorkingDays,
-      'paymentModelList': paymentList?.map((e) => e.toMap()).toList()
-
+      'paymentModelList': paymentList?.map((e) => e.toMap()).toList(),
+      'task':
+          taskList?.map((e) => e.toMap()).toList()
     };
   }
+}
+
+class StaffTaskModel {
+  int? id;
+  int? tripId;
+  String? workDate;
+  double? workSalary;
+
+  StaffTaskModel({
+    this.id,
+    this.tripId,
+    this.workDate,
+    this.workSalary,
+  });
+
+  factory StaffTaskModel.fromMap(Map<String, dynamic> map) {
+    return StaffTaskModel(
+      id: map['id'] ?? 0,
+      tripId: map['tripId'] ?? 0,
+      workDate: map['workDate'] ?? '',
+      workSalary: map['workSalary'] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toMap(){
+    return {
+      "id" : id,
+      "tripId" : tripId,
+      "workDate" : workDate,
+      "workSalary" : workSalary
+    };
+  }
+
 }

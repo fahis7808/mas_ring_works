@@ -27,10 +27,11 @@ class DailyBusinessProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
       List<Map<String, dynamic>> list =
-      await FirebaseService.getDataFromFireStore("Task Details");
+          await FirebaseService.getDataFromFireStore("Task Details");
       List<TaskModel> dailyList =
-      list.map((data) => TaskModel.fromMap(data)).toList();
-      taskList = dailyList.where((element) => element.workDate == date).toList();
+          list.map((data) => TaskModel.fromMap(data)).toList();
+      taskList =
+          dailyList.where((element) => element.workDate == date).toList();
     } catch (e) {
       print("Error fetching data: $e");
     } finally {
@@ -42,7 +43,7 @@ class DailyBusinessProvider extends ChangeNotifier {
   Future<void> getStaffData() async {
     try {
       List<Map<String, dynamic>> list =
-      await FirebaseService.getDataFromFireStore("Staff Details");
+          await FirebaseService.getDataFromFireStore("Staff Details");
       staffList = list.map((data) => StaffModel.fromMap(data)).toList();
     } catch (e) {
       print("Error fetching staff data: $e");
@@ -58,21 +59,31 @@ class DailyBusinessProvider extends ChangeNotifier {
 
       for (StaffModel staff in taskData.staffData ?? []) {
         StaffModel staffModel = staffList.firstWhere(
-              (e) => staff.id == e.id,
+          (e) => staff.id == e.id,
           orElse: () => StaffModel(),
         );
 
         /// Update staff salary and working days
-        staffModel.balanceSalary = (staffModel.balanceSalary ?? 0.0) +
-            (staffModel.salary ?? 0.0) +
-            (taskData.overTimeCharge ?? 0.0);
-        staffModel.totalSalary = (staffModel.totalSalary ?? 0.0) +
-            (staffModel.salary ?? 0.0) +
-            (taskData.overTimeCharge ?? 0.0);
+        double taskSalary =
+            (staffModel.salary ?? 0.0) + (taskData.overTimeCharge ?? 0.0);
+        staffModel.balanceSalary =
+            (staffModel.balanceSalary ?? 0.0) + (taskSalary);
+        staffModel.totalSalary = (staffModel.totalSalary ?? 0.0) + (taskSalary);
         staffModel.totalWorkingDays = (staffModel.totalWorkingDays ?? 0) + 1;
 
         /// Update task status
         taskData.status = "Finished";
+
+        /// set task data in staff details
+        staffModel.taskList ??= [];
+        int id = staffModel.taskList!.isEmpty
+            ? 0001
+            : staffModel.taskList!.last.id! + 1;
+        staffModel.taskList!.add(StaffTaskModel(
+            id: id,
+            tripId: taskData.id,
+            workDate: taskData.workDate,
+            workSalary: taskSalary));
 
         /// Save staff data
         await FirebaseService.saveUserDataToFirebase(

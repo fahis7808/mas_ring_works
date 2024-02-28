@@ -17,47 +17,49 @@ class SettlementAlertBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       scrollable: true,
-      content: Column(
-        children: [
-          CustomTextField(
-            value: staffProvider.date,
-            labelText: "Date",
-            onChanged: (val) {
-              staffProvider.date = val;
-            },
-          ),
-          const CustomTextField(
-            readOnly: true,
-            value: "Weekly Settlement",
-            labelText: "Reason",
-          ),
-          CustomTextField(
-            readOnly: true,
-            value: staffData.balanceSalary.toString(),
-            labelText: "Amount",
-            // onChanged: (val) {
-            //   // staffData.balanceSalary = val.toDouble();
-            // },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomButton(
-              text: "Paid",
-              onTap: () {
-                if (staffData.balanceSalary == 0) {
-                  showSnackBar(context, ("No Balance for Settlement"));
-                } else {
-                  staffProvider.savePayment(staffData).then((value) {
-                    if (value == "Success") {
-                      Navigator.pop(context);
-                    } else {
-                      showSnackBar(context, "Something went wrong");
-                    }
-                  });
-                }
-              })
-        ],
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomTextField(
+              value: staffProvider.date,
+              labelText: "Date",
+              onChanged: (val) {
+                staffProvider.date = val;
+              },
+            ),
+            const CustomTextField(
+              readOnly: true,
+              value: "Weekly Settlement",
+              labelText: "Reason",
+            ),
+            CustomTextField(
+              readOnly: true,
+              value: staffData.balanceSalary.toString(),
+              labelText: "Amount",
+              // onChanged: (val) {
+              //   // staffData.balanceSalary = val.toDouble();
+              // },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomButton(
+                text: "Paid",
+                onTap: () {
+                  if (staffData.balanceSalary == 0) {
+                    showSnackBar(context, ("No Balance for Settlement"));
+                  } else {
+                    staffProvider.savePayment(staffData).then((value) {
+                      if (value == "Success") {
+                        Navigator.pop(context);
+                      } else {
+                        showSnackBar(context, "Something wenat wrong");
+                      }
+                    });
+                  }
+                })
+          ],
+        ),
       ),
     );
   }
